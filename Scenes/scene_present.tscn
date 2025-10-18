@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0e47q7mgogie"]
+
+[ext_resource type="PackedScene" uid="uid://c6aoi02xag017" path="res://Test_Scenes/movimiento.tscn" id="1_f0ok8"]
+
+[node name="Scene_Present" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Movimiento" parent="." instance=ExtResource("1_f0ok8")]

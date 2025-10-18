@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://0veticnswssm"]
+
+[ext_resource type="Script" uid="uid://b5klcpbvma4c0" path="res://Scripts/movimiento.gd" id="1_hulvj"]
+[ext_resource type="Texture2D" uid="uid://y7ehfwu0comj" path="res://icon.svg" id="2_j0shb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exce7"]
+size = Vector2(117, 125)
+
+[node name="Movimiento" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_hulvj")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(81, 61)
+texture = ExtResource("2_j0shb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(82, 60)
+shape = SubResource("RectangleShape2D_exce7")

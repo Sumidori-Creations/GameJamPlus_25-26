@@ -11,7 +11,7 @@ func _ready():
 	mass = masa
 	gravity_scale = 0.0  # SIN gravedad (top-down)
 	lock_rotation = true  # No rotar
-	
+	add_to_group("objeto_movil")
 
 
 func _physics_process(delta):

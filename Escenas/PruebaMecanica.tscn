@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dce6s5mgkby1v"]
+[gd_scene load_steps=6 format=3 uid="uid://dce6s5mgkby1v"]
 
 [ext_resource type="Script" uid="uid://b5klcpbvma4c0" path="res://Scripts/movimiento.gd" id="1_6vr84"]
 [ext_resource type="Texture2D" uid="uid://y7ehfwu0comj" path="res://icon.svg" id="2_p6veq"]
-[ext_resource type="Script" uid="uid://yooejsnc1nwq" path="res://Scripts/objetoMovil.gd" id="3_15syi"]
 [ext_resource type="Texture2D" uid="uid://cyk56e78uvwqp" path="res://Assets/Art/Sprout Lands - Sprites - Basic pack/Objects/Egg_item.png" id="3_p6veq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15syi"]
@@ -12,11 +11,11 @@ size = Vector2(122, 127)
 radius = 24.166092
 
 [node name="PruebaMecanica" type="Node2D"]
-position = Vector2(171, 154)
 
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Jugador" type="CharacterBody2D" parent="Node2D"]
+collision_mask = 3
 script = ExtResource("1_6vr84")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Jugador"]
@@ -27,15 +26,13 @@ shape = SubResource("RectangleShape2D_15syi")
 position = Vector2(229, 137)
 texture = ExtResource("2_p6veq")
 
-[node name="ObjetoMovil" type="CharacterBody2D" parent="Node2D"]
-position = Vector2(641, 168)
-script = ExtResource("3_15syi")
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/ObjetoMovil"]
-position = Vector2(-52, -30)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(589, 138)
 shape = SubResource("CircleShape2D_15syi")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/ObjetoMovil"]
-position = Vector2(-52.00003, -29.999996)
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(589, 138)
 scale = Vector2(3.0624962, 2.8437505)
 texture = ExtResource("3_p6veq")

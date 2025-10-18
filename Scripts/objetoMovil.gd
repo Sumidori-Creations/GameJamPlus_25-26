@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 # Variables de movimiento
 var velocidad_actual : Vector2 = Vector2.ZERO
-var esta_siendo_empujado : bool = false
+var esta_siendo_empujado : bool = true
 var tiempo_sin_empuje : float = 0.0
 
 func _ready():

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0e47q7mgogie"]
+
+[sub_resource type="TileSet" id="TileSet_k3w38"]
+tile_size = Vector2i(32, 32)
+
+[sub_resource type="TileSet" id="TileSet_jgxjp"]
+tile_size = Vector2i(32, 32)
+
+[sub_resource type="TileSet" id="TileSet_ehikj"]
+tile_size = Vector2i(32, 32)
+
+[sub_resource type="TileSet" id="TileSet_rhtmk"]
+tile_size = Vector2i(32, 32)
+
+[node name="Scene_Present" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Tile_Ground" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_k3w38")
+format = 2
+
+[node name="Tile_Path" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_jgxjp")
+format = 2
+layer_0/z_index = 1
+
+[node name="Tile_Details" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_ehikj")
+format = 2
+layer_0/z_index = 2
+
+[node name="Tile_Above" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_rhtmk")
+format = 2
+layer_0/z_index = 10

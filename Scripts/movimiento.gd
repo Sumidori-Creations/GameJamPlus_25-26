@@ -24,8 +24,8 @@ func _physics_process(delta):
 	var direccion_input = Vector2.ZERO
 	
 	# Capturar las teclas de movimiento
-	direccion_input.x = Input.get_axis("mover_izquierda", "mover_derecha")
-	direccion_input.y = Input.get_axis("mover_arriba", "mover_abajo")
+	direccion_input.x = Input.get_axis("movimiento izquierda", "movimiento derecho")
+	direccion_input.y = Input.get_axis("movimiento arriba", "movimiento abajo")
 	
 	# Normalizar el vector para movimiento diagonal consistente
 	if direccion_input.length() > 0:

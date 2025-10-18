@@ -7,14 +7,13 @@
 radius = 12.649111
 
 [node name="ObjetosMoviles" type="Node2D"]
-position = Vector2(270, 104)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
 script = ExtResource("1_g41u0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_fhr20")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
 texture = ExtResource("1_fhr20")

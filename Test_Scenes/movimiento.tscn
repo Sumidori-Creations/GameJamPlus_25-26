@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6aoi02xag017"]
+[gd_scene load_steps=4 format=3 uid="uid://c6aoi02xag017"]
 
+[ext_resource type="Script" uid="uid://b5klcpbvma4c0" path="res://Scripts/movimiento.gd" id="1_nt6xa"]
 [ext_resource type="Texture2D" uid="uid://y7ehfwu0comj" path="res://icon.svg" id="1_qvk3s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exce7"]
@@ -8,6 +9,7 @@ size = Vector2(117, 125)
 [node name="Movimiento" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_nt6xa")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(81, 61)

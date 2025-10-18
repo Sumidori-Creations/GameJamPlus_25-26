@@ -12,6 +12,10 @@ extends CharacterBody2D
 var ultima_direccion : Vector2 = Vector2.DOWN
 var esta_corriendo : bool = false
 
+# Variables para empuje
+var objeto_empujando = null
+var velocidad_empuje : float = 150.0  # Velocidad a la que se empujan los objetos
+
 func _ready():
 	# Inicializar cualquier configuración necesaria
 	pass
@@ -59,7 +63,21 @@ func _physics_process(delta):
 		actualizar_animaciones(ultima_direccion, false)
 	
 	# Mover el personaje
-	move_and_slide()
+	var colisiones = move_and_slide()
+	
+	# Detectar colisiones y empujar objetos
+	detectar_y_empujar_objetos(direccion_input)
+
+func detectar_y_empujar_objetos(direccion: Vector2):
+	# Obtener todos los cuerpos con los que el jugador colisionó
+	for i in range(get_slide_collision_count()):
+		var colision = get_slide_collision(i)
+		var objeto = colision.get_collider()
+		
+		# Verificar si el objeto tiene el script objetoMovil
+		if objeto and objeto.has_method("ser_empujado"):
+			# Empujar el objeto en la dirección del jugador
+			objeto.ser_empujado(direccion, velocidad_empuje)
 
 func actualizar_animaciones(direccion: Vector2, esta_caminando: bool):
 	# Esta función maneja las animaciones según la dirección y estado

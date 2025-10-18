@@ -1,12 +1,14 @@
 extends CharacterBody2D
 
 # Variables de configuración
-@export var resistencia : float = 0.95  # Fricción (0-1, menos valor = más fricción)
-@export var velocidad_maxima : float = 300.0
+@export var resistencia : float = 0.92  # Fricción (0-1, menos valor = más fricción)
+@export var velocidad_maxima : float = 250.0
+@export var desaceleracion_rapida : bool = true  # Detener rápido si no hay empuje
 
 # Variables de movimiento
-var velocidad_empuje : Vector2 = Vector2.ZERO
+var velocidad_actual : Vector2 = Vector2.ZERO
 var esta_siendo_empujado : bool = false
+var tiempo_sin_empuje : float = 0.0
 
 func _ready():
 	# Asegurarse de que es un CharacterBody2D con física
@@ -14,15 +16,27 @@ func _ready():
 
 func _physics_process(delta):
 	# Aplicar fricción al movimiento
-	if velocidad_empuje != Vector2.ZERO:
-		velocidad_empuje *= resistencia
+	if velocidad_actual != Vector2.ZERO:
+		# Aplicar resistencia (fricción)
+		velocidad_actual *= resistencia
+		
+		# Limitar velocidad máxima
+		if velocidad_actual.length() > velocidad_maxima:
+			velocidad_actual = velocidad_actual.normalized() * velocidad_maxima
 		
 		# Detener si la velocidad es muy pequeña
-		if velocidad_empuje.length() < 5:
-			velocidad_empuje = Vector2.ZERO
+		if velocidad_actual.length() < 2:
+			velocidad_actual = Vector2.ZERO
 			esta_siendo_empujado = false
 	
-	velocity = velocidad_empuje
+	# Contar tiempo sin empuje
+	if not esta_siendo_empujado:
+		tiempo_sin_empuje += delta
+		# Detener más rápido si no hay empuje constante
+		if desaceleracion_rapida and tiempo_sin_empuje > 0.1:
+			velocidad_actual *= 0.9
+	
+	velocity = velocidad_actual
 	move_and_slide()
 
 func ser_empujado(direccion: Vector2, velocidad: float):
@@ -30,21 +44,23 @@ func ser_empujado(direccion: Vector2, velocidad: float):
 	Función llamada cuando el jugador empuja este objeto
 	
 	Args:
-		direccion: Vector2 - La dirección hacia la que empujar
+		direccion: Vector2 - La dirección hacia la que empujar (debe estar normalizada)
 		velocidad: float - La velocidad del empuje
 	"""
 	
 	if direccion != Vector2.ZERO:
 		# Aplicar velocidad en la dirección del empuje
-		velocidad_empuje = direccion.normalized() * velocidad
+		velocidad_actual = direccion.normalized() * velocidad
 		
 		# Limitar la velocidad máxima
-		if velocidad_empuje.length() > velocidad_maxima:
-			velocidad_empuje = velocidad_empuje.normalized() * velocidad_maxima
+		if velocidad_actual.length() > velocidad_maxima:
+			velocidad_actual = velocidad_actual.normalized() * velocidad_maxima
 		
 		esta_siendo_empujado = true
+		tiempo_sin_empuje = 0.0
 
 func detener():
 	"""Detiene inmediatamente el movimiento del objeto"""
-	velocidad_empuje = Vector2.ZERO
+	velocidad_actual = Vector2.ZERO
 	esta_siendo_empujado = false
+	tiempo_sin_empuje = 0.0

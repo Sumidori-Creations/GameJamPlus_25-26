@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://br6sspku0h224"]
+
+[ext_resource type="Script" uid="uid://ch2371wnengdl" path="res://Scripts/gear.gd" id="1_i8c6r"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_00hf6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i8c6r"]
+load_path = "res://.godot/imported/Ilustracion_sin_titulo_1.png-09a3fef23446e7b15b3dbf1ddf047b6f.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iqqkc"]
+radius = 220.0
+
+[node name="gear" type="Area2D"]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_i8c6r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_00hf6")
+texture = SubResource("CompressedTexture2D_i8c6r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iqqkc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

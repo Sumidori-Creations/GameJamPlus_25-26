@@ -61,9 +61,13 @@ func _physics_process(delta):
 			"side":
 				anim.get("parameters/playback").travel("Idle - side")
 		velocity = Vector2.ZERO
+	
+	var collision = move_and_collide(velocity * delta)
 
-	move_and_slide()
-
+	if collision and collision.get_collider() is RigidBody2D:
+		var rb = collision.get_collider()
+		var push_dir = collision.get_normal() * -1.0
+		rb.apply_central_impulse(push_dir * 100)
 
 func _on_audio_stream_player_finished() -> void:
 	sfx.stream = load(step_sounds.pick_random())

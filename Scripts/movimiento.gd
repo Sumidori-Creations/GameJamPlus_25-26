@@ -1,29 +1,31 @@
 extends CharacterBody2D
 
-# Variables de configuración del movimiento
-@export var velocidad_movimiento : float = 200.0
+# --- Movimiento (tus variables) ---
+@export var velocidad_movimiento : float = 350.0
 @export var velocidad_empuje : float = 150.0
 @export var radio_empuje : float = 50.0
 
-# Variables para animaciones
+# --- LÍMITES DEL MUNDO / PANTALLA (usa los de tu imagen) ---
+@export var limite_izq  : float = -1075.0
+@export var limite_sup  : float = -645.0
+@export var limite_der  : float = 1200.0
+@export var limite_inf  : float = 1100.0
+@export var margen_borde: Vector2 = Vector2(8, 8) # para que no se corte el sprite
+
+# --- Referencias opcionales (por si las usas) ---
 @onready var animation_player = $AnimationPlayer if has_node("AnimationPlayer") else null
 @onready var sprite = $Sprite2D if has_node("Sprite2D") else null
 
-# Variable para guardar la última dirección
 var ultima_direccion : Vector2 = Vector2.DOWN
 
-func _ready():
-	pass
-
 func _physics_process(delta):
-	# Obtener input del jugador
-	var direccion_input = Vector2.ZERO
-	
-	var input_derecha = Input.is_action_pressed("movimiento derecho")
-	var input_izquierda = Input.is_action_pressed("movimiento izquierda")
-	var input_abajo = Input.is_action_pressed("movimiento abajo")
-	var input_arriba = Input.is_action_pressed("movimiento arriba")
-	
+	# Input
+	var direccion_input := Vector2.ZERO
+	var input_derecha   := Input.is_action_pressed("movimiento derecho")
+	var input_izquierda := Input.is_action_pressed("movimiento izquierda")
+	var input_abajo     := Input.is_action_pressed("movimiento abajo")
+	var input_arriba    := Input.is_action_pressed("movimiento arriba")
+
 	# Prioridad: Horizontal > Vertical
 	if input_derecha:
 		direccion_input = Vector2.RIGHT
@@ -33,22 +35,19 @@ func _physics_process(delta):
 		direccion_input = Vector2.DOWN
 	elif input_arriba:
 		direccion_input = Vector2.UP
-	
-	# Aplicar movimiento
+
+	# Movimiento
 	if direccion_input != Vector2.ZERO:
 		velocity = direccion_input * velocidad_movimiento
 		ultima_direccion = direccion_input
-		##actualizar_animaciones(direccion_input, true)
-		
-		# Voltear sprite si se mueve horizontalmente
 		if sprite and direccion_input.x != 0:
 			sprite.flip_h = direccion_input.x < 0
 	else:
 		velocity = Vector2.ZERO
-	##	actualizar_animaciones(ultima_direccion, false)
-	
-	# Mover el personaje
+
 	move_and_slide()
-	
-	
-	
+
+	# --- CONFINAR AL JUGADOR A LOS LÍMITES FIJOS ---
+	# (Usa los mismos valores que tiene tu Camera2D > Limit)
+	global_position.x = clamp(global_position.x, limite_izq + margen_borde.x, limite_der - margen_borde.x)
+	global_position.y = clamp(global_position.y, limite_sup + margen_borde.y, limite_inf - margen_borde.y)

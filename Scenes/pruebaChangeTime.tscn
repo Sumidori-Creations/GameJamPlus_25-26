@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwxdo221rnu46"]
+
+[ext_resource type="Script" uid="uid://b3hvpxfot5npk" path="res://Scripts/prueba_change_time.gd" id="1_sygnu"]
+[ext_resource type="PackedScene" uid="uid://c6aoi02xag017" path="res://Objects/movimiento.tscn" id="1_yxnbf"]
+[ext_resource type="PackedScene" uid="uid://dmf70x4nw8xcw" path="res://Objects/triggerWall.tscn" id="2_sygnu"]
+
+[node name="PruebaChangeTime" type="Node2D"]
+script = ExtResource("1_sygnu")
+
+[node name="Movimiento" parent="." instance=ExtResource("1_yxnbf")]
+position = Vector2(-24, 125)
+
+[node name="TriggerWallContainer" type="Node" parent="."]
+
+[node name="TriggerWall2" parent="TriggerWallContainer" instance=ExtResource("2_sygnu")]
+position = Vector2(354, 449)
+
+[node name="TriggerWall" parent="TriggerWallContainer" instance=ExtResource("2_sygnu")]
+position = Vector2(444, 288)
+
+[node name="TriggerWall3" parent="TriggerWallContainer" instance=ExtResource("2_sygnu")]
+position = Vector2(357, 263)
+activo = false

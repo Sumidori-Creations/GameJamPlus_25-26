@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmf70x4nw8xcw"]
+
+[ext_resource type="Script" uid="uid://c7rywf7ab5iq" path="res://Scripts/trigger_wall.gd" id="1_ikuev"]
+[ext_resource type="Texture2D" uid="uid://bv2mepfxcxpb2" path="res://Assets/Art/Grass/Cesped_1.png" id="2_w0mt2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikuev"]
+size = Vector2(26, 26)
+
+[node name="TriggerWall" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_ikuev")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ikuev")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.055, 0.055)
+texture = ExtResource("2_w0mt2")

@@ -4,16 +4,24 @@
 [ext_resource type="Texture2D" uid="uid://cyk56e78uvwqp" path="res://Assets/Art/Sprout Lands - Sprites - Basic pack/Objects/Egg_item.png" id="2_2rhqa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fhr20"]
-radius = 12.649111
+radius = 8.062258
 
 [node name="ObjetosMoviles" type="Node2D"]
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 script = ExtResource("1_xfvi1")
+fuerza_empuje = null
+velocidad_maxima = null
+masa = null
+friccion = null
+velocidad_rotacion = null
+color_original = null
+color_colisiona = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_fhr20")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(-1, -1)
 texture = ExtResource("2_2rhqa")

@@ -292,6 +292,7 @@ tree_root = SubResource("AnimationNodeStateMachine_hwoim")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+limit_enabled = false
 limit_left = -1300
 limit_top = -1125
 limit_right = 315

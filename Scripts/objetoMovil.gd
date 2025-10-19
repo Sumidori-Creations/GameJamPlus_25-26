@@ -1,10 +1,7 @@
 extends RigidBody2D
 
 # Variables de configuración
-@export var fuerza_empuje : float = 500.0  # Fuerza del impulso
-@export var velocidad_maxima : float = 400.0
-@export var masa : float = 1.0
-@export var friccion : float = 0.2  # Fricción para desaceleración suave
+@export var friccion : float = 0.6  # Fricción para desaceleración suave
 
 # Variables para rotación y color
 @export var velocidad_rotacion : float = 360.0  # Grados por segundo
@@ -17,8 +14,7 @@ var sprite : Sprite2D
 var area_colisiona : Area2D
 
 func _ready():
-	# Configurar propiedades físicas del RigidBody2D para top-down
-	mass = masa
+	# Configurar propiedades físicas del RigidBody2D para top-downmasa
 	gravity_scale = 0.0  # SIN gravedad (top-down)
 	lock_rotation = false  # PERMITIR rotación física
 	

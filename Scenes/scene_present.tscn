@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b0e47q7mgogie"]
+[gd_scene load_steps=22 format=3 uid="uid://b0e47q7mgogie"]
 
 [ext_resource type="PackedScene" uid="uid://c6aoi02xag017" path="res://Test_Scenes/movimiento.tscn" id="1_f0ok8"]
 [ext_resource type="Texture2D" uid="uid://gutbv3xs1jx0" path="res://Assets/Art/Grass/Cesped_All.png" id="1_rmoak"]
@@ -1488,7 +1488,16 @@ sources/7 = SubResource("TileSetAtlasSource_ei3fk")
 sources/8 = SubResource("TileSetAtlasSource_ejwen")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rmoak"]
-size = Vector2(141, 60)
+size = Vector2(116, 25.375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j50gw"]
+size = Vector2(141, 25.398438)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75d40"]
+size = Vector2(80, 25.34375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hggup"]
+size = Vector2(496, 200)
 
 [node name="Scene_Present" type="Node2D"]
 y_sort_enabled = true
@@ -1523,6 +1532,102 @@ position = Vector2(-728, 1707)
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-68.5, 694)
+[node name="Arbusto_1" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1122, 1013.7969)
 shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-946, 1226.6992)
+shape = SubResource("RectangleShape2D_j50gw")
+
+[node name="Arbusto_3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-865, 889.25)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1057, 711)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-370, 644)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-464, 1434)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_7" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-828, 1584)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_8" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1069, 425)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_9" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-707, 324)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_10" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1009, 22)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_11" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-639, -65)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_12" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-916, -338)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_13" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-127, -303)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_14" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(155, -305)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_15" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(282, 51)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_16" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(430, 558)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_17" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(445, 259)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_18" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(211, 867)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_19" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(288, 1163)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_20" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(580, 1274)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbusto_21" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(570, 1678)
+shape = SubResource("RectangleShape2D_rmoak")
+
+[node name="Arbol_1" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-211, 1763)
+shape = SubResource("RectangleShape2D_75d40")
+
+[node name="Arbol_2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(572, 1027)
+shape = SubResource("RectangleShape2D_75d40")
+
+[node name="Arbol_3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-387, -254)
+shape = SubResource("RectangleShape2D_75d40")
+
+[node name="Tren" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(22, -430)
+shape = SubResource("RectangleShape2D_hggup")

@@ -261,8 +261,8 @@ transitions = ["Start", "Idle - front", SubResource("AnimationNodeStateMachineTr
 [node name="Movimiento" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["player"]]
-collision_layer = 3
-collision_mask = 5
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_qlhm3")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]

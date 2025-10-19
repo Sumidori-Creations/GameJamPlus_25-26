@@ -5,7 +5,7 @@ extends RigidBody2D
 
 # Variables para rotación y color
 @export var velocidad_rotacion : float = 360.0  # Grados por segundo
-@export var color_original : Color = Color.WHITE
+@export var color_original : Color = Color.ORANGE
 @export var color_colisiona : Color = Color.RED
 
 # Variables de estado

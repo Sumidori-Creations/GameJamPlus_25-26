@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="uid://bbqya5tjog22g"
 
+[autoload]
+
+Global="*res://Scripts/Global.gd"
+
 [input]
 
 "movimiento arriba"={

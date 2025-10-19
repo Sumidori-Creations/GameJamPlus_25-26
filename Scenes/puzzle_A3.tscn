@@ -19,14 +19,21 @@ script/source = "extends Node2D
 
 @onready var tileMap = $Paredes
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# Recorremos todos los nodos instanciados por el TileMapLayer
-	for child in tileMap.get_used_cells():
-		print(tileMap.get_cell_source_id(child))
-		if tileMap.get_cell_source_id(child):
-			print(tileMap.get_cell_source_id(child))
-			#child.cambiazo.connect(changeTime)
+## Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+	## Recorremos todos los nodos instanciados por el TileMapLayer
+	#for child in tileMap.get_used_cells():
+		#print(tileMap.get_cell_source_id(child))
+		#if tileMap.get_cell_source_id(child):
+			#print(tileMap.get_cell_source_id(child))
+			##child.cambiazo.connect(changeTime)
+			
+func _process(_delta: float) -> void:
+	if Global.score >= 4:
+		get_tree().change_scene_to_file(\"res://Scenes/win.tscn\")
+		
+	if Input.is_action_just_pressed(\"change_time\"):
+		get_tree().change_scene_to_file(\"res://Scenes/puzzle_A3.tscn\")
 
 func changeTime(triggerWall) -> void:
 	triggerWall.activo = !triggerWall.activo
@@ -1340,10 +1347,10 @@ bus = &"Music"
 
 [connection signal="body_entered" from="Paredes/gear" to="Paredes/gear" method="_on_body_entered"]
 [connection signal="body_exited" from="Paredes/gear" to="Paredes/gear" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@398797" to="Paredes/@Area2D@398797" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@398797" to="Paredes/@Area2D@398797" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@398974" to="Paredes/@Area2D@398974" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@398974" to="Paredes/@Area2D@398974" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@398975" to="Paredes/@Area2D@398975" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@398975" to="Paredes/@Area2D@398975" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@45053" to="Paredes/@Area2D@45053" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@45053" to="Paredes/@Area2D@45053" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@45230" to="Paredes/@Area2D@45230" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@45230" to="Paredes/@Area2D@45230" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@45231" to="Paredes/@Area2D@45231" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@45231" to="Paredes/@Area2D@45231" method="_on_body_exited"]
 [connection signal="finished" from="Player/CharacterBody2D/AudioStreamPlayer" to="Player/CharacterBody2D" method="_on_audio_stream_player_finished"]

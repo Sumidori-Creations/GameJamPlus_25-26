@@ -9,7 +9,7 @@ extends CharacterBody2D
 @export var limite_izq  : float = -1075.0
 @export var limite_sup  : float = -645.0
 @export var limite_der  : float = 1200.0
-@export var limite_inf  : float = 1100.0
+@export var limite_inf  : float = 1300.0
 @export var margen_borde: Vector2 = Vector2(8, 8) # para que no se corte el sprite
 
 # --- Referencias opcionales (por si las usas) ---

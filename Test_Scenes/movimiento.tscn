@@ -9,6 +9,8 @@ size = Vector2(117, 125)
 [node name="Movimiento" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 3
+collision_mask = 5
 script = ExtResource("1_nt6xa")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
@@ -22,6 +24,6 @@ shape = SubResource("RectangleShape2D_exce7")
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 zoom = Vector2(0.5, 0.5)
 limit_left = -1056
-limit_top = -640
+limit_top = -650
 limit_right = 1312
-limit_bottom = 1216
+limit_bottom = 1500

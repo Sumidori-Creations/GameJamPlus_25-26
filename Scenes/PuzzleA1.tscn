@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://byy7576j62i3h"]
+[gd_scene load_steps=11 format=3 uid="uid://byy7576j62i3h"]
 
 [ext_resource type="Texture2D" uid="uid://vl51es7lpy8n" path="res://Assets/Art/Puzzle/fondo.png" id="1_tejtn"]
 [ext_resource type="Texture2D" uid="uid://bkyefqaupasnt" path="res://Assets/Art/Puzzle/bloque.png" id="2_in2mh"]
 [ext_resource type="PackedScene" path="res://Objects/triggerWall.tscn" id="3_j3cts"]
+[ext_resource type="PackedScene" uid="uid://c6aoi02xag017" path="res://Objects/movimiento.tscn" id="4_fi0ky"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_in2mh"]
 texture = ExtResource("1_tejtn")
@@ -2002,12 +2003,12 @@ texture = ExtResource("2_in2mh")
 position = Vector2(4, 13)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/BloquePared4"]
-position = Vector2(425.5, 55.999985)
+position = Vector2(423.5, 55.999985)
 scale = Vector2(0.09999998, 0.09999998)
 shape = SubResource("RectangleShape2D_j3cts")
 
 [node name="Sprite2D" type="Sprite2D" parent="Paredes/BloquePared4"]
-position = Vector2(425, 56.99997)
+position = Vector2(423, 56.99997)
 scale = Vector2(0.24399994, 0.21599987)
 texture = ExtResource("2_in2mh")
 
@@ -2015,11 +2016,14 @@ texture = ExtResource("2_in2mh")
 position = Vector2(4, 13)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/BloquePared5"]
-position = Vector2(547.5, 55.999985)
+position = Vector2(545.5, 55.999985)
 scale = Vector2(0.09999998, 0.09999998)
 shape = SubResource("RectangleShape2D_j3cts")
 
 [node name="Sprite2D" type="Sprite2D" parent="Paredes/BloquePared5"]
-position = Vector2(547, 56.99997)
+position = Vector2(545, 56.99997)
 scale = Vector2(0.24399994, 0.21599987)
 texture = ExtResource("2_in2mh")
+
+[node name="Movimiento" parent="." instance=ExtResource("4_fi0ky")]
+position = Vector2(34, 149)

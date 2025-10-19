@@ -5,11 +5,6 @@ extends CharacterBody2D
 @export var velocidad_empuje : float = 150.0
 @export var radio_empuje : float = 50.0
 
-# --- LÍMITES DEL MUNDO / PANTALLA (usa los de tu imagen) ---
-@export var limite_izq  : float = -1300.0
-@export var limite_sup  : float = -1125.0
-@export var limite_der  : float = 315.0
-@export var limite_inf  : float = 1775.0
 @export var margen_borde: Vector2 = Vector2(8, 8) # para que no se corte el sprite
 
 # --- Referencias opcionales (por si las usas) ---
@@ -46,8 +41,3 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 
 	move_and_slide()
-
-	# --- CONFINAR AL JUGADOR A LOS LÍMITES FIJOS ---
-	# (Usa los mismos valores que tiene tu Camera2D > Limit)
-	global_position.x = clamp(global_position.x, limite_izq + margen_borde.x, limite_der - margen_borde.x)
-	global_position.y = clamp(global_position.y, limite_sup + margen_borde.y, limite_inf - margen_borde.y)

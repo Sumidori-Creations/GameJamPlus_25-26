@@ -45,7 +45,7 @@ func _physics_process(delta):
 	if direccion_input != Vector2.ZERO:
 		velocity = direccion_input * velocidad_movimiento
 		ultima_direccion = direccion_input
-		#anim.get("parameters/playback").travel("running")
+		anim.get("parameters/playback").travel("running")
 		if !sfx.playing:
 			sfx.stream = load(step_sounds.pick_random())
 			sfx.pitch_scale = randf_range(0.8, 1.2)
@@ -53,13 +53,13 @@ func _physics_process(delta):
 		if direccion_input.x != 0:
 			$AnimatedSprite2D.flip_h = direccion_input.x < 0
 	else:
-		#match idle_direction:
-			#"front":
-				#anim.get("parameters/playback").travel("Idle - front")
-			#"back":
-				#anim.get("parameters/playback").travel("Idle - back")
-			#"side":
-				#anim.get("parameters/playback").travel("Idle - side")
+		match idle_direction:
+			"front":
+				anim.get("parameters/playback").travel("Idle - front")
+			"back":
+				anim.get("parameters/playback").travel("Idle - back")
+			"side":
+				anim.get("parameters/playback").travel("Idle - side")
 		velocity = Vector2.ZERO
 
 	move_and_slide()

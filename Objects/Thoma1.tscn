@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://blm3lwb22miqm"]
+
+[ext_resource type="Script" uid="uid://b5klcpbvma4c0" path="res://Scripts/movimiento.gd" id="1_m31ts"]
+[ext_resource type="Texture2D" uid="uid://bua4nnbwqyxg6" path="res://Assets/Art/Thomas Van Der Zug/Thomas.png" id="2_d2030"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_58mrd"]
+radius = 16.0
+height = 126.0
+
+[node name="Movimiento" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_m31ts")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(94.00002, 74.999954)
+scale = Vector2(0.1519999, 0.1519999)
+texture = ExtResource("2_d2030")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(96, 81)
+shape = SubResource("CapsuleShape2D_58mrd")

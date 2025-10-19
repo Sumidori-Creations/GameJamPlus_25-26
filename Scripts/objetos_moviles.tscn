@@ -1,20 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1wea0ubjgvv7"]
 
 [ext_resource type="Script" uid="uid://yooejsnc1nwq" path="res://Scripts/objetoMovil.gd" id="1_xfvi1"]
-[ext_resource type="Texture2D" uid="uid://cyk56e78uvwqp" path="res://Assets/Art/Sprout Lands - Sprites - Basic pack/Objects/Egg_item.png" id="2_2rhqa"]
+[ext_resource type="Texture2D" uid="uid://de1yxsmrus38p" path="res://Assets/Art/Puzzle/Ilustracion_sin_titulo_1.png" id="2_xfvi1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fhr20"]
-radius = 8.062258
+radius = 13.152946
 
 [node name="ObjetosMoviles" type="Node2D"]
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_xfvi1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_fhr20")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-position = Vector2(-1, -1)
-texture = ExtResource("2_2rhqa")
+scale = Vector2(0.060000002, 0.060000002)
+texture = ExtResource("2_xfvi1")

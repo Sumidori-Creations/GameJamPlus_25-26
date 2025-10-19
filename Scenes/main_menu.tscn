@@ -68,11 +68,17 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_48xlc")
 flip_h = true
 
-[node name="Logo" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(600, 150)
-texture = ExtResource("2_48xlc")
-flip_h = true
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 28.0
+offset_right = 1006.0
+offset_bottom = 291.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43529412)
+theme_override_constants/shadow_outline_size = 9
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 256
+text = "Discencia"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMP3_48xlc")
@@ -112,18 +118,6 @@ text = "Jugar"
 [node name="Credits" parent="." instance=ExtResource("5_n45e2")]
 visible = false
 layout_mode = 1
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 139.0
-offset_top = 28.0
-offset_right = 1006.0
-offset_bottom = 291.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43529412)
-theme_override_constants/shadow_outline_size = 9
-theme_override_fonts/font = ExtResource("3_1ehe0")
-theme_override_font_sizes/font_size = 256
-text = "Discencia"
 
 [connection signal="pressed" from="creditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="playButton" to="." method="_on_play_button_pressed"]

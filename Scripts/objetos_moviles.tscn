@@ -10,13 +10,6 @@ radius = 8.062258
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 script = ExtResource("1_xfvi1")
-fuerza_empuje = null
-velocidad_maxima = null
-masa = null
-friccion = null
-velocidad_rotacion = null
-color_original = null
-color_colisiona = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(-1, 0)

@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://vl51es7lpy8n" path="res://Assets/Art/Puzzle/fondo.png" id="1_tejtn"]
 [ext_resource type="Texture2D" uid="uid://bkyefqaupasnt" path="res://Assets/Art/Puzzle/bloque.png" id="2_in2mh"]
-[ext_resource type="PackedScene" path="res://Objects/triggerWall.tscn" id="3_j3cts"]
-[ext_resource type="PackedScene" uid="uid://blm3lwb22miqm" path="res://Objects/Thoma1.tscn" id="4_fi0ky"]
+[ext_resource type="PackedScene" uid="uid://dmf70x4nw8xcw" path="res://Objects/triggerWall.tscn" id="3_j3cts"]
 [ext_resource type="PackedScene" uid="uid://dn3f2vf2gqnpj" path="res://Objects/pared.tscn" id="4_xr1cw"]
+[ext_resource type="PackedScene" uid="uid://c6aoi02xag017" path="res://Objects/movimiento.tscn" id="5_a3fyx"]
 [ext_resource type="PackedScene" uid="uid://c1wea0ubjgvv7" path="res://Scripts/objetos_moviles.tscn" id="6_a3fyx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_in2mh"]
@@ -2255,8 +2255,7 @@ position = Vector2(52, 166)
 [node name="Pared3" parent="Node" instance=ExtResource("4_xr1cw")]
 position = Vector2(52, 208)
 
-[node name="Movimiento" parent="." instance=ExtResource("4_fi0ky")]
-position = Vector2(-70, 162)
+[node name="Movimiento" parent="." instance=ExtResource("5_a3fyx")]
 
 [node name="ObjetosMoviles" parent="." instance=ExtResource("6_a3fyx")]
 position = Vector2(66, 197)

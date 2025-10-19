@@ -23,7 +23,7 @@ shape = SubResource("RectangleShape2D_exce7")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 zoom = Vector2(0.5, 0.5)
-limit_left = -1056
-limit_top = -650
-limit_right = 1312
-limit_bottom = 1500
+limit_left = -1300
+limit_top = -1125
+limit_right = 315
+limit_bottom = 1875

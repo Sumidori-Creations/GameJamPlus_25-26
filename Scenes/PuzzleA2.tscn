@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://k0yjih4gs106"]
+[gd_scene load_steps=16 format=3 uid="uid://k0yjih4gs106"]
 
+[ext_resource type="Script" uid="uid://de1lfqq2eestj" path="res://Scripts/changeScene.gd" id="1_2bpkh"]
 [ext_resource type="Texture2D" uid="uid://vl51es7lpy8n" path="res://Assets/Art/Puzzle/fondo.png" id="1_xouo3"]
 [ext_resource type="PackedScene" uid="uid://c6aoi02xag017" path="res://Objects/movimiento.tscn" id="2_7dnlh"]
 [ext_resource type="PackedScene" uid="uid://dmf70x4nw8xcw" path="res://Objects/triggerWall.tscn" id="2_km2et"]
@@ -1953,6 +1954,7 @@ radius = 11.71003
 
 [node name="PuzzleA2" type="Node2D"]
 position = Vector2(-2, 68)
+script = ExtResource("1_2bpkh")
 
 [node name="Fondo" type="TileMapLayer" parent="."]
 

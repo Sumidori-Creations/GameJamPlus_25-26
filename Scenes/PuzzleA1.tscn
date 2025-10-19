@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://byy7576j62i3h"]
+[gd_scene load_steps=16 format=3 uid="uid://byy7576j62i3h"]
 
 [ext_resource type="Texture2D" uid="uid://vl51es7lpy8n" path="res://Assets/Art/Puzzle/fondo.png" id="1_tejtn"]
+[ext_resource type="Script" uid="uid://de1lfqq2eestj" path="res://Scripts/changeScene.gd" id="1_wndnh"]
 [ext_resource type="Texture2D" uid="uid://bkyefqaupasnt" path="res://Assets/Art/Puzzle/bloque.png" id="2_in2mh"]
 [ext_resource type="PackedScene" uid="uid://dmf70x4nw8xcw" path="res://Objects/triggerWall.tscn" id="3_j3cts"]
 [ext_resource type="PackedScene" uid="uid://dn3f2vf2gqnpj" path="res://Objects/pared.tscn" id="4_xr1cw"]
@@ -1953,6 +1954,7 @@ radius = 11.71003
 
 [node name="PuzzleA1" type="Node2D"]
 position = Vector2(-2, 68)
+script = ExtResource("1_wndnh")
 
 [node name="Fondo" type="TileMapLayer" parent="."]
 
@@ -2341,10 +2343,10 @@ position = Vector2(52, 166)
 position = Vector2(52, 208)
 metadata/_edit_lock_ = true
 
-[node name="Movimiento" parent="." instance=ExtResource("5_a3fyx")]
+[node name="personaje" parent="." instance=ExtResource("5_a3fyx")]
 position = Vector2(-67, 298)
 
-[node name="ObjetosMoviles" parent="." instance=ExtResource("6_a3fyx")]
+[node name="objeto_movil" parent="." instance=ExtResource("6_a3fyx")]
 z_index = 1
 position = Vector2(18, 280)
 

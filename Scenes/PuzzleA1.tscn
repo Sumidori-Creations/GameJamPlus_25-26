@@ -1949,7 +1949,7 @@ sources/2 = SubResource("TileSetAtlasSource_xr1cw")
 size = Vector2(1210.0002, 1020.00024)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wndnh"]
-radius = 16.27882
+radius = 11.71003
 
 [node name="PuzzleA1" type="Node2D"]
 position = Vector2(-2, 68)
@@ -2345,12 +2345,10 @@ metadata/_edit_lock_ = true
 position = Vector2(-67, 298)
 
 [node name="ObjetosMoviles" parent="." instance=ExtResource("6_a3fyx")]
+z_index = 1
 position = Vector2(18, 280)
 
 [node name="Node" type="Node" parent="."]
-
-[node name="Pared" parent="Node" instance=ExtResource("4_xr1cw")]
-position = Vector2(95, 292)
 
 [node name="Pared5" parent="Node" instance=ExtResource("4_xr1cw")]
 position = Vector2(266, 334)
@@ -2363,12 +2361,6 @@ position = Vector2(266, 420)
 
 [node name="Pared8" parent="Node" instance=ExtResource("4_xr1cw")]
 position = Vector2(266, 450)
-
-[node name="Pared3" parent="Node" instance=ExtResource("4_xr1cw")]
-position = Vector2(180, 292)
-
-[node name="Pared4" parent="Node" instance=ExtResource("4_xr1cw")]
-position = Vector2(223, 292)
 
 [node name="Pared9" parent="Node" instance=ExtResource("4_xr1cw")]
 position = Vector2(266, 292)
@@ -2427,15 +2419,6 @@ position = Vector2(657, 340)
 [node name="Pared25" parent="Node" instance=ExtResource("4_xr1cw")]
 position = Vector2(397, 335)
 
-[node name="Pared26" parent="Node" instance=ExtResource("4_xr1cw")]
-position = Vector2(483, 449)
-
-[node name="Pared27" parent="Node" instance=ExtResource("4_xr1cw")]
-position = Vector2(483, 420)
-
-[node name="Pared28" parent="Node" instance=ExtResource("4_xr1cw")]
-position = Vector2(483, 378)
-
 [node name="Pared19" parent="Node" instance=ExtResource("4_xr1cw")]
 position = Vector2(483, 293)
 
@@ -2445,16 +2428,7 @@ position = Vector2(483, 335)
 [node name="Pared21" parent="Node" instance=ExtResource("4_xr1cw")]
 position = Vector2(483, 251)
 
-[node name="Pared2" parent="Node" instance=ExtResource("4_xr1cw")]
-position = Vector2(138, 292)
-
 [node name="Node2" type="Node" parent="."]
-
-[node name="Pared" parent="Node2" instance=ExtResource("4_xr1cw")]
-position = Vector2(701, 213)
-
-[node name="Pared2" parent="Node2" instance=ExtResource("4_xr1cw")]
-position = Vector2(743, 170)
 
 [node name="Pared3" parent="Node2" instance=ExtResource("4_xr1cw")]
 position = Vector2(785, 126)
@@ -2484,12 +2458,14 @@ position = Vector2(916, 411)
 position = Vector2(961, 450)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1142, 292)
+position = Vector2(1129, 285)
 shape = SubResource("CircleShape2D_wndnh")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
-position = Vector2(1142, 292)
-scale = Vector2(0.091000095, 0.091000095)
+position = Vector2(1129, 285)
+scale = Vector2(0.08550014, 0.08399998)
 texture = ExtResource("7_nc3jf")

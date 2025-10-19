@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=3 uid="uid://k4412t57p6yc"]
+
+[ext_resource type="Script" uid="uid://dnw01uovyqikh" path="res://Scripts/credits.gd" id="1_ccovl"]
+[ext_resource type="Texture2D" uid="uid://bum1jjgekkjxf" path="res://Assets/UI/logo_Mesa_de_trabajo_1_copia-removebg-preview.png" id="1_gryuy"]
+[ext_resource type="FontFile" uid="uid://ced6iug8fx23p" path="res://Assets/UI/Abbasy Calligraphy Typeface.ttf" id="2_ccovl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bamb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.8666667)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ccovl")
+
+[node name="fondo" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.64705884)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 355.0
+offset_top = 61.0
+offset_right = 785.0
+offset_bottom = 567.0
+
+[node name="LogoMesaDeTrabajo1CopiaRemovebgPreview" type="Sprite2D" parent="ColorRect2"]
+position = Vector2(217, 189)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("1_gryuy")
+
+[node name="Title" type="Label" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 1.0
+offset_right = 322.0
+offset_bottom = 59.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ccovl")
+theme_override_font_sizes/font_size = 56
+text = "A game by"
+
+[node name="Member" type="Label" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 287.0
+offset_right = 401.0
+offset_bottom = 326.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ccovl")
+theme_override_font_sizes/font_size = 32
+text = "Sara Pastor				Art"
+horizontal_alignment = 3
+
+[node name="Member2" type="Label" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 322.0
+offset_right = 401.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ccovl")
+theme_override_font_sizes/font_size = 32
+text = "Adrián Herrera			Programming"
+horizontal_alignment = 3
+
+[node name="Member3" type="Label" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 355.0
+offset_right = 402.0
+offset_bottom = 394.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ccovl")
+theme_override_font_sizes/font_size = 32
+text = "Melissa Alguera 			Programming"
+horizontal_alignment = 3
+
+[node name="Member4" type="Label" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 389.0
+offset_right = 403.0
+offset_bottom = 428.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ccovl")
+theme_override_font_sizes/font_size = 32
+text = "David Pastor	 			Music"
+horizontal_alignment = 3
+
+[node name="Button" type="Button" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 453.0
+offset_right = 262.0
+offset_bottom = 487.0
+theme_override_fonts/font = ExtResource("2_ccovl")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_1bamb")
+text = "Ok"
+
+[connection signal="pressed" from="ColorRect2/Button" to="." method="_on_button_pressed"]

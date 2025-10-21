@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://ijg4fnlfk24d"
-path="res://.godot/imported/Small-Ben-theme-loop.mp3-10079ddc4e3aded724da614a4c6344ee.mp3str"
+path="res://.godot/imported/Small-Ben-theme-loop.mp3-65617429af958dd3d5f84873fccd6fcf.mp3str"
 
 [deps]
 
-source_file="res://Assets/music/Small-Ben-theme-loop.mp3"
-dest_files=["res://.godot/imported/Small-Ben-theme-loop.mp3-10079ddc4e3aded724da614a4c6344ee.mp3str"]
+source_file="res://Assets/Music/Small-Ben-theme-loop.mp3"
+dest_files=["res://.godot/imported/Small-Ben-theme-loop.mp3-65617429af958dd3d5f84873fccd6fcf.mp3str"]
 
 [params]
 

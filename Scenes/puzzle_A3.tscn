@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://5kich3q4mssr" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_1.png" id="10_4py33"]
 [ext_resource type="Texture2D" uid="uid://dd4bp2l1ayu6i" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_2.png" id="11_msiy6"]
 [ext_resource type="Texture2D" uid="uid://bmmrcggaan6wv" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_3.png" id="12_bngdd"]
-[ext_resource type="AudioStream" uid="uid://8slkvgdajidq" path="res://Assets/sfx/step-1.wav" id="13_yq7d0"]
+[ext_resource type="AudioStream" uid="uid://8slkvgdajidq" path="res://Assets/SFX/step-1.wav" id="13_yq7d0"]
 
 [sub_resource type="GDScript" id="GDScript_sv3pp"]
 script/source = "extends Node2D

@@ -32,7 +32,7 @@ script = ExtResource("1_ce3w2")
 scroll_scale = Vector2(1, 0.815)
 repeat_size = Vector2(1000, 1000)
 autoscroll = Vector2(50, 40)
-repeat_times = 3
+repeat_times = 10
 ignore_camera_scroll = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]

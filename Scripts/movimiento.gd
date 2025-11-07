@@ -20,12 +20,14 @@ var step_sounds = ["res://Assets/sfx/step-1.wav",
 				   "res://Assets/sfx/step-5.wav"]
 
 func _physics_process(delta):
+	if Global.state != Global.GameState.PLAYING:
+		return
 	# Input
 	var direccion_input := Vector2.ZERO
-	var input_derecha   := Input.is_action_pressed("movimiento derecho")
-	var input_izquierda := Input.is_action_pressed("movimiento izquierda")
-	var input_abajo     := Input.is_action_pressed("movimiento abajo")
-	var input_arriba    := Input.is_action_pressed("movimiento arriba")
+	var input_derecha   := Input.is_action_pressed("right")
+	var input_izquierda := Input.is_action_pressed("left")
+	var input_abajo     := Input.is_action_pressed("down")
+	var input_arriba    := Input.is_action_pressed("up")
 
 	# Prioridad: Horizontal > Vertical
 	if input_derecha:

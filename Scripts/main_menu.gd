@@ -5,6 +5,7 @@ func _ready() -> void:
 	
 func _on_exit_button_pressed() -> void:
 	$AudioStreamPlayer.stop()
+	Global.state = Global.GameState.PLAYING
 	get_tree().change_scene_to_file("res://Scenes/scene_present.tscn")
 
 func _on_play_button_pressed() -> void:

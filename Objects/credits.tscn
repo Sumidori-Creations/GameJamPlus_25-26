@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnw01uovyqikh" path="res://Scripts/credits.gd" id="1_ccovl"]
 [ext_resource type="Texture2D" uid="uid://bum1jjgekkjxf" path="res://Assets/UI/logo_Mesa_de_trabajo_1_copia-removebg-preview.png" id="1_gryuy"]
-[ext_resource type="FontFile" uid="uid://ced6iug8fx23p" path="res://Assets/UI/Abbasy Calligraphy Typeface.ttf" id="2_ccovl"]
+[ext_resource type="FontFile" uid="uid://ced6iug8fx23p" path="res://Assets/UI/Fonts/Abbasy Calligraphy Typeface.ttf" id="2_ccovl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bamb"]
 content_margin_left = 4.0

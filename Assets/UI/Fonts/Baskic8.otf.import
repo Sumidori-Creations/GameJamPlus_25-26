@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ced6iug8fx23p"
-path="res://.godot/imported/Abbasy Calligraphy Typeface.ttf-8d7d69132a79b478c89913a6020880ba.fontdata"
+uid="uid://c4304guxupqij"
+path="res://.godot/imported/Baskic8.otf-7ae502f8b351ce5fc9d1960b6ece8bee.fontdata"
 
 [deps]
 
-source_file="res://Assets/UI/Abbasy Calligraphy Typeface.ttf"
-dest_files=["res://.godot/imported/Abbasy Calligraphy Typeface.ttf-8d7d69132a79b478c89913a6020880ba.fontdata"]
+source_file="res://Assets/UI/Fonts/Baskic8.otf"
+dest_files=["res://.godot/imported/Baskic8.otf-7ae502f8b351ce5fc9d1960b6ece8bee.fontdata"]
 
 [params]
 

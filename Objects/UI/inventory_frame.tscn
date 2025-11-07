@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://cw6ddiwot02x4"]
+
+[ext_resource type="Texture2D" uid="uid://cb1hkprxiutg8" path="res://Assets/UI/item frame.png" id="1_7cdgm"]
+[ext_resource type="Script" uid="uid://du0sojfpnl4vi" path="res://Scripts/UI/inventory_frame.gd" id="2_m72d0"]
+[ext_resource type="FontFile" uid="uid://c4304guxupqij" path="res://Assets/UI/Fonts/Baskic8.otf" id="3_mjcon"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m72d0"]
+atlas = ExtResource("1_7cdgm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjcon"]
+atlas = ExtResource("1_7cdgm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_orwec"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m72d0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjcon")
+}],
+"loop": true,
+"name": &"selected",
+"speed": 5.0
+}]
+
+[node name="Frame" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_orwec")
+script = ExtResource("2_m72d0")
+
+[node name="Amount_Display" type="Label" parent="."]
+z_index = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -25.0
+offset_right = -2.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_mjcon")
+theme_override_font_sizes/font_size = 12
+text = "x 0"
+horizontal_alignment = 2
+vertical_alignment = 2

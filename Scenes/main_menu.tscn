@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://vl51es7lpy8n" path="res://Assets/Art/Puzzle/fondo.png" id="1_28flt"]
 [ext_resource type="Script" uid="uid://d6wf1mmpcv1g" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://dtx1mybtyifub" path="res://Assets/Art/Train/Tren.png" id="2_48xlc"]
-[ext_resource type="FontFile" uid="uid://ced6iug8fx23p" path="res://Assets/UI/Abbasy Calligraphy Typeface.ttf" id="3_1ehe0"]
+[ext_resource type="FontFile" uid="uid://ced6iug8fx23p" path="res://Assets/UI/Fonts/Abbasy Calligraphy Typeface.ttf" id="3_1ehe0"]
 [ext_resource type="PackedScene" uid="uid://k4412t57p6yc" path="res://Objects/credits.tscn" id="5_n45e2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_28flt"]

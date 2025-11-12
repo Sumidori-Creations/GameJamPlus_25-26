@@ -1,14 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkadi6r6xvvug"]
+[gd_scene load_steps=4 format=3 uid="uid://dkadi6r6xvvug"]
 
 [ext_resource type="Texture2D" uid="uid://bqb6llstfcgth" path="res://Assets/UI/item example.png" id="1_elsgv"]
 
 [sub_resource type="GDScript" id="GDScript_elsgv"]
-script/source = "extends Sprite2D
+script/source = "extends Area2D
 
 @export var item_name = \"apple\"
 @export var stack_limit = 99
 "
 
-[node name="item_example" type="Sprite2D"]
-texture = ExtResource("1_elsgv")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elsgv"]
+size = Vector2(25, 28)
+
+[node name="item_example" type="Area2D"]
 script = SubResource("GDScript_elsgv")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_elsgv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_elsgv")

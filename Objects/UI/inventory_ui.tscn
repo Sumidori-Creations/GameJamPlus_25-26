@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bqgcbefu5y8xy" path="res://Scripts/UI/Inventory.gd" id="1_6pwgt"]
 [ext_resource type="Texture2D" uid="uid://cofxwe41mqy1j" path="res://Assets/UI/Inventory layout.png" id="1_iaes4"]
 [ext_resource type="PackedScene" uid="uid://cw6ddiwot02x4" path="res://Objects/UI/inventory_frame.tscn" id="2_5grs2"]
-[ext_resource type="PackedScene" uid="uid://dkadi6r6xvvug" path="res://Objects/UI/item_example.tscn" id="4_wkn66"]
+[ext_resource type="PackedScene" uid="uid://dkadi6r6xvvug" path="res://Objects/UI/ui_item_example.tscn" id="4_wkn66"]
 [ext_resource type="Texture2D" uid="uid://brilewuaxobf8" path="res://Assets/UI/Inventory hotbar.png" id="5_yrreh"]
 
 [node name="Inventory" type="Control"]

@@ -120,3 +120,30 @@ func get_slot(x: int, y: int) -> Node2D:
 		if slot.slot_pos == [x, y]:
 			return slot
 	return null
+
+func space_for_item(item: Area2D) -> Node2D:
+	for slot in hotbar_slots.get_children() + slots.get_children():
+		if !slot.ocupado:
+			return slot
+		elif slot.get_child(-1).item_name == item.item_name and slot.item_amount + item.amount <= item.stack_limit:
+			return slot
+	return null
+
+func add_item(item: Area2D) -> void:
+	var slot = space_for_item(item)
+	if !slot:
+		return
+	var ui_item = load("res://Objects/UI/ui_item_example.tscn")
+	if slot.ocupado:
+		ui_item = slot.get_child(-1)
+	else:
+		ui_item = ui_item.instantiate()
+		slot.add_child(ui_item)
+	var new_amount = slot.item_amount + item.amount
+	slot.set_item_amount(new_amount)
+	ui_item.item_name = item.item_name
+	ui_item.get_node("Sprite").texture = item.get_node("Sprite").texture
+	slot.ocupado = true
+	item.queue_free()
+	print(item)
+	print("Yea, llegó la signal")

@@ -43,8 +43,8 @@ func _physics_process(delta):
 		rb.apply_central_impulse(push_dir * 100)
 
 func _on_recollection_hitbox_area_entered(area: Area2D) -> void:
-	pickup_item.emit(area)
-	pass # Replace with function body.
+	if area.pickable:
+		pickup_item.emit(area)
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1px8v"]
@@ -68,7 +68,7 @@ size = Vector2(32, 32)
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxml1"]
 radius = 23.086792
 
-[node name="PlayerTest" type="CharacterBody2D"]
+[node name="PlayerTest" type="CharacterBody2D" groups=["Player"]]
 motion_mode = 1
 script = SubResource("GDScript_jeuoc")
 

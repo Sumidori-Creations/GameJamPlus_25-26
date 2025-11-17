@@ -3,11 +3,33 @@
 [ext_resource type="Texture2D" uid="uid://ygd3ijomcfxh" path="res://Assets/UI/IMG_1536.png" id="1_0ms04"]
 
 [sub_resource type="GDScript" id="GDScript_73s2y"]
-script/source = "extends Area2D
+script/source = "@tool
+extends Area2D
+
+@onready var sprite := $Sprite
 
 @export var item_name = \"bear\"
 @export var stack_limit = 99
 @export var amount = 1
+var pickable = true
+
+@export var image: Texture2D:
+	set(value):
+		image = value
+		if Engine.is_editor_hint():
+			call_deferred(\"_apply_image\")
+		else:
+			if sprite:
+				sprite.texture = value
+
+func _apply_image():
+	$Sprite.texture = image
+		
+func _ready() -> void:
+	_apply_image()
+
+func _on_area_exited(_area: Area2D) -> void:
+	pickable = true
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rrf2l"]
@@ -16,6 +38,7 @@ size = Vector2(31, 31)
 [node name="item_example" type="Area2D"]
 collision_layer = 4
 script = SubResource("GDScript_73s2y")
+image = ExtResource("1_0ms04")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_0ms04")
@@ -23,3 +46,5 @@ texture = ExtResource("1_0ms04")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_rrf2l")
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

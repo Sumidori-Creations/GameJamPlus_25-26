@@ -59,6 +59,8 @@ func _process(_delta: float) -> void:
 			place_stack()
 		else:
 			pick_stack()
+	if Input.is_action_just_pressed("drop"):
+		drop_item()
 	
 func place_stack() -> void:
 	var highlighted_frame = get_slot(cursor_pos[0], cursor_pos[1])
@@ -145,5 +147,28 @@ func add_item(item: Area2D) -> void:
 	ui_item.get_node("Sprite").texture = item.get_node("Sprite").texture
 	slot.ocupado = true
 	item.queue_free()
-	print(item)
-	print("Yea, llegó la signal")
+
+func drop_item() -> void:
+	var actual_slot = get_slot(cursor_pos[0], cursor_pos[1])
+	if !actual_slot.ocupado and !holding_item:
+		return
+	var item_to_place = actual_slot.get_child(-1)
+	if holding_item:
+		item_to_place = holding_item
+	var placed_item = load("res://Objects/Test/pickable_item_example.tscn")
+	placed_item = placed_item.instantiate()
+	placed_item.item_name = item_to_place.item_name
+	placed_item.amount = holding_item_amount if holding_item else actual_slot.item_amount
+	placed_item.stack_limit = item_to_place.stack_limit
+	placed_item.image = item_to_place.get_node("Sprite").texture
+	var player = get_tree().current_scene.find_child("PlayerTest", true, false)
+	placed_item.position = player.position
+	placed_item.pickable = false
+	get_tree().current_scene.find_child("Items", true, false).add_child(placed_item)
+	if holding_item:
+		holding_item = null
+		holding_item_amount = 0
+	else:
+		actual_slot.ocupado = false
+		actual_slot.set_item_amount(0)
+	item_to_place.queue_free()

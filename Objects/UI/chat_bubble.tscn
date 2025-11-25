@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj62tsu1684pp"]
+
+[ext_resource type="Texture2D" uid="uid://bdlcn1p5woqb3" path="res://Assets/UI/Chat BalloonsBubbles - Pixel Art/Chat-1.png" id="1_707w0"]
+[ext_resource type="FontFile" uid="uid://c4304guxupqij" path="res://Assets/UI/Fonts/Baskic8.otf" id="2_ehtbj"]
+
+[sub_resource type="GDScript" id="GDScript_gihnv"]
+script/source = "extends Control  # Supongamos que este script está en un nodo Control que es tu caja de diálogo
+
+@export var typing_speed := 0.05  # segundos por letra
+@export var max_length := 400
+@export var max_height := 80
+
+var min_length : float
+var min_height : float
+var full_text := \"\"
+var display_text := \"\"
+var char_index := 0
+var typing := false
+var font : Font
+
+@onready var label = $Bubble/Text
+@onready var bubble = $Bubble
+
+func _ready() -> void:
+	font = label.get_theme_font(\"font\")
+	min_height = font.get_height() + bubble.patch_margin_left + bubble.patch_margin_right
+	min_length = font.get_string_size(\"Hola\").x + bubble.patch_margin_bottom + bubble.patch_margin_top
+	if bubble.size.x < min_length:
+		bubble.size.x = min_length
+	if bubble.size.y < min_height:
+		bubble.size.y = min_height
+	label.size.x = bubble.size.x - bubble.patch_margin_right
+	label.size.y = bubble.size.y - bubble.patch_margin_bottom
+
+func show_text(text: String) -> void:
+	full_text = text
+	display_text = \"\"
+	char_index = 0
+	typing = true
+	label.text = \"\"  # limpiar al principio
+
+func _process(_delta: float) -> void:
+	if typing:
+		# cada ciclo agregamos letra si hay más
+		if char_index < full_text.length():
+			char_index += 1
+			# dividimos el texto hasta el índice actual
+			display_text = full_text.substr(0, char_index)
+			label.text = display_text
+			handle_autoWrap()
+		else:
+			# ya terminamos de escribir todo
+			typing = false
+
+func handle_autoWrap():
+	var text_length = font.get_string_size(label.text).x
+	if label.size.x < text_length:
+		var difference = abs(text_length - label.size.x)
+		if difference + bubble.size.x <= max_length:
+			bubble.size.x += difference
+			label.size.x += difference
+	var text_height = label.get_line_count() * font.get_height()
+	if label.size.y < text_height:
+		var difference = abs(text_height - label.size.y)
+		if difference + bubble.size.y <= max_height:
+			bubble.size.y += difference
+			label.size.y += difference
+
+func _input(event):
+	# si el jugador presiona una tecla (ejemplo: espacio), y aún está escribiendo, saltar al final
+	if event.is_action_pressed(\"ui_accept\"):
+		if typing:
+			label.text = full_text
+			typing = false
+		else:
+			# aquí podrías avisar que termine la línea y pasar a la siguiente
+			emit_signal(\"text_done\")  # por ejemplo
+			show_text(\"Hola mundo, esta es una prueba para la funcionalidad de chat.\")
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_hf2hw"]
+font = ExtResource("2_ehtbj")
+font_color = Color(0, 0, 0, 1)
+
+[node name="ChatBubble" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_gihnv")
+
+[node name="Bubble" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 28.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_707w0")
+region_rect = Rect2(428, 176, 52, 57)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 18
+patch_margin_bottom = 17
+
+[node name="Text" type="Label" parent="Bubble"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 11.0
+offset_bottom = 49.0
+label_settings = SubResource("LabelSettings_hf2hw")
+autowrap_mode = 3

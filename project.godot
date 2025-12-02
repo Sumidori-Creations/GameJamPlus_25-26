@@ -103,6 +103,7 @@ drop={
 2d_physics/layer_2="jugador"
 2d_physics/layer_3="objetos"
 2d_physics/layer_4="checks"
+2d_physics/layer_5="npc"
 
 [rendering]
 

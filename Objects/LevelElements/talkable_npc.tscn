@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtbpw4avkkgii"]
+
+[ext_resource type="Script" uid="uid://c2ettss8wgnos" path="res://Scripts/LevelElements/talkable_npc.gd" id="1_ddt0d"]
+[ext_resource type="PackedScene" uid="uid://bj62tsu1684pp" path="res://Objects/UI/chat_bubble.tscn" id="1_lwltn"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ddt0d"]
+load_path = "res://.godot/imported/rogues.png-4eac5e1667ab8340ad32c56fed15059b.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83mkt"]
+size = Vector2(18, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_83mkt"]
+radius = 35.22783
+
+[node name="TalkableNPC" type="StaticBody2D"]
+collision_layer = 16
+script = ExtResource("1_ddt0d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CompressedTexture2D_ddt0d")
+region_enabled = true
+region_rect = Rect2(135, 197, 18, 26)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_83mkt")
+
+[node name="ChatBubble" parent="." instance=ExtResource("1_lwltn")]
+visible = false
+offset_left = -23.0
+offset_top = -32.0
+offset_right = -3.0
+offset_bottom = -9.0
+region_rect = Rect2(16, 176, 48, 53)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 14
+showing_conversation = false
+
+[node name="ActionArea" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea"]
+shape = SubResource("CircleShape2D_83mkt")

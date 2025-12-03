@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://ccxdme51577qw"]
+[gd_scene load_steps=13 format=4 uid="uid://ccxdme51577qw"]
 
 [ext_resource type="PackedScene" uid="uid://dkadi6r6xvvug" path="res://Objects/UI/ui_item_example.tscn" id="1_11e1y"]
 [ext_resource type="Texture2D" uid="uid://crkyddo8axims" path="res://Assets/Test/tiles.png" id="1_ttwnw"]
 [ext_resource type="PackedScene" uid="uid://c4v2dg2lgaepc" path="res://Objects/Test/player_test.tscn" id="2_nti2j"]
 [ext_resource type="PackedScene" uid="uid://b8fusymb152j4" path="res://Objects/UI/inventory_ui.tscn" id="3_nti2j"]
 [ext_resource type="PackedScene" uid="uid://ctrcwksn4r6sa" path="res://Objects/Test/pickable_item_example.tscn" id="5_rtkbb"]
+[ext_resource type="PackedScene" uid="uid://dtbpw4avkkgii" path="res://Objects/LevelElements/talkable_npc.tscn" id="5_wedp4"]
 [ext_resource type="Texture2D" uid="uid://bqb6llstfcgth" path="res://Assets/UI/item example.png" id="6_cwo6r"]
 
 [sub_resource type="GDScript" id="GDScript_nti2j"]
@@ -205,6 +206,9 @@ position = Vector2(233, 310)
 item_name = "apple"
 amount = 99
 image = ExtResource("6_cwo6r")
+
+[node name="TalkableNPC" parent="Items" instance=ExtResource("5_wedp4")]
+position = Vector2(462, 254)
 
 [node name="PlayerTest" parent="." instance=ExtResource("2_nti2j")]
 position = Vector2(240, 240)

@@ -1,7 +1,5 @@
 extends Control  # Supongamos que este script está en un nodo Control que es tu caja de diálogo
 
-signal close_conversation
-
 @export var typing_speed := 0.05  # segundos por letra
 @export var max_length := 400
 @export var max_height := 80
@@ -18,15 +16,21 @@ var font : Font
 var conversation_index := 0
 
 @onready var label = $Text
+@onready var original_x = position.x
+@onready var original_y = position.y
 
 func _ready() -> void:
 	font = label.get_theme_font("font")
-	min_height = font.get_height() + self.patch_margin_left + self.patch_margin_right
-	min_length = font.get_string_size("Hola").x + self.patch_margin_bottom + self.patch_margin_top
+	min_length = font.get_string_size("Hola").x + self.patch_margin_left + self.patch_margin_right 
+	min_height = font.get_height() + self.patch_margin_bottom + self.patch_margin_top 
 	if self.size.x < min_length:
+		self.position.x -= min_length - self.size.x
 		self.size.x = min_length
+		original_x = self.position.x
 	if self.size.y < min_height:
+		self.position.y -= min_height - self.size.y
 		self.size.y = min_height
+		original_y = self.position.y
 	label.size.x = self.size.x - self.patch_margin_right
 	label.size.y = self.size.y - self.patch_margin_bottom
 	if showing_conversation:
@@ -41,6 +45,7 @@ func show_text(text: String) -> void:
 	label.text = ""  # limpiar al principio
 
 func _process(_delta: float) -> void:
+	
 	if typing:
 		# cada ciclo agregamos letra si hay más
 		if char_index < full_text.length():
@@ -55,27 +60,43 @@ func _process(_delta: float) -> void:
 
 func handle_autoWrap():
 	var text_length = font.get_string_size(label.text).x
+	var text_height = label.get_line_count() * font.get_height()
+	if label.size.x < text_length and label.size.y < text_height:
+		var x_difference = abs(text_length - label.size.x)
+		var y_difference = abs(text_height - label.size.y)
+		if x_difference + self.size.x <= max_length and y_difference + self.size.y <= max_height:
+			self.size.x += x_difference
+			label.size.x += x_difference
+			self.position.x -= x_difference
+			self.size.y += y_difference
+			label.size.y += y_difference
+			self.position.y -= y_difference
 	if label.size.x < text_length:
 		var difference = abs(text_length - label.size.x)
 		if difference + self.size.x <= max_length:
 			self.size.x += difference
 			label.size.x += difference
-	var text_height = label.get_line_count() * font.get_height()
+			self.position.x -= difference
 	if label.size.y < text_height:
 		var difference = abs(text_height - label.size.y)
 		if difference + self.size.y <= max_height:
 			self.size.y += difference
 			label.size.y += difference
+			self.position.y -= difference
 
 func _input(event):
+	if Global.state != Global.GameState.DIALOGUE:
+		return
 	# si el jugador presiona una tecla (ejemplo: espacio), y aún está escribiendo, saltar al final
 	if event.is_action_pressed("ui_accept"):
 		if typing:
 			label.text = full_text
 			typing = false
+			handle_autoWrap()
 		else:
 			if message.size() == conversation_index:
 				Global.state = Global.GameState.PLAYING
+				visible = false
 				conversation_index = 0
 				showing_conversation = false;
 				show_text("")
@@ -83,7 +104,16 @@ func _input(event):
 				self.size.y = min_height
 				label.size.x = self.size.x - self.patch_margin_right
 				label.size.y = self.size.y - self.patch_margin_bottom
-				close_conversation.emit();
+				self.position.x = original_x
+				self.position.y = original_y
 				return
 			show_text(message[conversation_index])
 			conversation_index += 1
+
+func start_talking():
+	Global.state = Global.GameState.DIALOGUE
+	visible = true
+	showing_conversation = true;
+	conversation_index = 0
+	show_text(message[conversation_index])
+	conversation_index += 1

@@ -15,7 +15,7 @@ var typing := false
 var font : Font
 var conversation_index := 0
 
-@onready var label = $Text
+@onready var label : Label = $Text
 @onready var original_x = position.x
 @onready var original_y = position.y
 
@@ -60,18 +60,18 @@ func _process(_delta: float) -> void:
 
 func handle_autoWrap():
 	var text_length = font.get_string_size(label.text).x
-	var text_height = label.get_line_count() * font.get_height()
-	if label.size.x < text_length and label.size.y < text_height:
-		var x_difference = abs(text_length - label.size.x)
-		var y_difference = abs(text_height - label.size.y)
-		if x_difference + self.size.x <= max_length and y_difference + self.size.y <= max_height:
-			self.size.x += x_difference
-			label.size.x += x_difference
-			self.position.x -= x_difference
-			self.size.y += y_difference
-			label.size.y += y_difference
-			self.position.y -= y_difference
-	if label.size.x < text_length:
+	var text_height = font.get_multiline_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, label.size.x).y + font.get_height()
+	if text_length >= max_length and label.size.x < max_length:
+		var difference = abs(max_length - label.size.x)
+		self.size.x += difference
+		label.size.x += difference
+		self.position.x -= difference
+		while text_length > max_length and label.size.y < max_height:
+			self.size.y += font.get_height()
+			label.size.y += font.get_height()
+			self.position.y -= font.get_height()
+			text_length -= max_length			
+	elif label.size.x < text_length:
 		var difference = abs(text_length - label.size.x)
 		if difference + self.size.x <= max_length:
 			self.size.x += difference

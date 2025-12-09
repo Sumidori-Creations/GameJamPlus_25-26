@@ -21,8 +21,10 @@ var conversation_index := 0
 
 func _ready() -> void:
 	font = label.get_theme_font("font")
-	min_length = font.get_string_size("Hola").x + self.patch_margin_left + self.patch_margin_right 
-	min_height = font.get_height() + self.patch_margin_bottom + self.patch_margin_top 
+	#min_length = font.get_string_size("Hola").x + self.patch_margin_left + self.patch_margin_right 
+	#min_height = font.get_height() + self.patch_margin_bottom + self.patch_margin_top 
+	min_length = max_length
+	min_height = max_height
 	if self.size.x < min_length:
 		self.position.x -= min_length - self.size.x
 		self.size.x = min_length
@@ -53,7 +55,7 @@ func _process(_delta: float) -> void:
 			# dividimos el texto hasta el índice actual
 			display_text = full_text.substr(0, char_index)
 			label.text = display_text
-			handle_autoWrap()
+			#handle_autoWrap()
 		else:
 			# ya terminamos de escribir todo
 			typing = false
@@ -92,7 +94,7 @@ func _input(event):
 		if typing:
 			label.text = full_text
 			typing = false
-			handle_autoWrap()
+			#handle_autoWrap()
 		else:
 			if message.size() == conversation_index:
 				Global.state = Global.GameState.PLAYING

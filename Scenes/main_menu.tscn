@@ -59,25 +59,25 @@ flip_h = true
 flip_v = true
 
 [node name="Tren" type="Parallax2D" parent="."]
-repeat_size = Vector2(1300, 0)
+repeat_size = Vector2(700, 0)
 autoscroll = Vector2(40, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Tren"]
-position = Vector2(0, 600)
+position = Vector2(81, 311)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_48xlc")
 flip_h = true
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 139.0
-offset_top = 28.0
-offset_right = 1006.0
-offset_bottom = 291.0
+offset_left = 80.0
+offset_top = 10.0
+offset_right = 514.0
+offset_bottom = 142.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43529412)
 theme_override_constants/shadow_outline_size = 9
 theme_override_fonts/font = ExtResource("3_1ehe0")
-theme_override_font_sizes/font_size = 256
+theme_override_font_sizes/font_size = 128
 text = "Discencia"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -87,30 +87,30 @@ bus = &"Music"
 
 [node name="creditsButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 343.0
-offset_top = 446.0
-offset_right = 531.0
-offset_bottom = 516.0
+offset_left = 94.0
+offset_top = 248.0
+offset_right = 282.0
+offset_bottom = 318.0
 theme_override_fonts/font = ExtResource("3_1ehe0")
 theme_override_font_sizes/font_size = 32
 text = "Créditos"
 
 [node name="playButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 615.0
-offset_top = 446.0
-offset_right = 803.0
-offset_bottom = 516.0
+offset_left = 349.0
+offset_top = 246.0
+offset_right = 537.0
+offset_bottom = 316.0
 theme_override_fonts/font = ExtResource("3_1ehe0")
 theme_override_font_sizes/font_size = 32
 text = "Salir"
 
 [node name="exitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 481.0
-offset_top = 333.0
-offset_right = 669.0
-offset_bottom = 403.0
+offset_left = 217.0
+offset_top = 145.0
+offset_right = 405.0
+offset_bottom = 215.0
 theme_override_fonts/font = ExtResource("3_1ehe0")
 theme_override_font_sizes/font_size = 32
 text = "Jugar"

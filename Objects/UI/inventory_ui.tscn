@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8fusymb152j4"]
+[gd_scene load_steps=5 format=3 uid="uid://b8fusymb152j4"]
 
 [ext_resource type="Script" uid="uid://bqgcbefu5y8xy" path="res://Scripts/UI/Inventory.gd" id="1_6pwgt"]
 [ext_resource type="Texture2D" uid="uid://cofxwe41mqy1j" path="res://Assets/UI/Inventory layout.png" id="1_iaes4"]
 [ext_resource type="PackedScene" uid="uid://cw6ddiwot02x4" path="res://Objects/UI/inventory_frame.tscn" id="2_5grs2"]
-[ext_resource type="PackedScene" uid="uid://dkadi6r6xvvug" path="res://Objects/UI/ui_item_example.tscn" id="4_wkn66"]
 [ext_resource type="Texture2D" uid="uid://brilewuaxobf8" path="res://Assets/UI/Inventory hotbar.png" id="5_yrreh"]
 
 [node name="Inventory" type="Control"]
@@ -109,11 +108,7 @@ slot_pos = [4, 1]
 
 [node name="Frame22" parent="Inventory/Slots" instance=ExtResource("2_5grs2")]
 position = Vector2(18, 12)
-ocupado = true
-item_amount = 10
 slot_pos = [5, 1]
-
-[node name="item_example" parent="Inventory/Slots/Frame22" instance=ExtResource("4_wkn66")]
 
 [node name="Frame23" parent="Inventory/Slots" instance=ExtResource("2_5grs2")]
 position = Vector2(54, 12)
@@ -137,11 +132,7 @@ slot_pos = [0, 2]
 
 [node name="Frame10" parent="Inventory/Slots" instance=ExtResource("2_5grs2")]
 position = Vector2(-126, 48)
-ocupado = true
-item_amount = 1
 slot_pos = [1, 2]
-
-[node name="item_example" parent="Inventory/Slots/Frame10" instance=ExtResource("4_wkn66")]
 
 [node name="Frame11" parent="Inventory/Slots" instance=ExtResource("2_5grs2")]
 position = Vector2(-90, 48)
@@ -209,11 +200,7 @@ slot_pos = [7, 3]
 
 [node name="Frame35" parent="Inventory/Slots" instance=ExtResource("2_5grs2")]
 position = Vector2(126, 84)
-ocupado = true
-item_amount = 99
 slot_pos = [8, 3]
-
-[node name="item_example" parent="Inventory/Slots/Frame35" instance=ExtResource("4_wkn66")]
 
 [node name="Frame36" parent="Inventory/Slots" instance=ExtResource("2_5grs2")]
 position = Vector2(162, 84)

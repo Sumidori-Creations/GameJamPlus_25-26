@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://do706gnklk8c5"]
+
+[ext_resource type="Script" uid="uid://d04wvsd7hgeob" path="res://Scripts/UI/chat_bubble.gd" id="1_gpvol"]
+[ext_resource type="FontFile" uid="uid://c4304guxupqij" path="res://Assets/UI/Fonts/Baskic8.otf" id="2_gpvol"]
+
+[sub_resource type="GDScript" id="GDScript_u1sye"]
+script/source = "extends ColorRect
+
+func _ready() -> void:
+	$ChatBubble.on_conversation_end.connect(end_cinematic)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"ui_accept\") and !$ChatBubble.showing_conversation:
+		$ChatBubble.start_talking()
+
+func end_cinematic() -> void:
+	Global.transitionTo(\"res://Scenes/Levels/present_overworld.tscn\", self)
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_00cak"]
+font = ExtResource("2_gpvol")
+font_size = 32
+
+[node name="Node" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = SubResource("GDScript_u1sye")
+
+[node name="ChatBubble" type="NinePatchRect" parent="."]
+z_index = 5
+layout_mode = 0
+offset_left = 120.0
+offset_top = 80.0
+offset_right = 520.0
+offset_bottom = 280.0
+region_rect = Rect2(428, 176, 52, 57)
+script = ExtResource("1_gpvol")
+max_height = 200
+message = Array[String](["Año XXXX
+Ciudad de XXXXXXXXX", "Una era distópica donde reina el caos.", "Cada persona hace lo posible para sobrevivir por su cuenta", "No se puede confiar en nadie...", "La verdad es definida por quienes tienen el poder para oprimir a las masas.", "Nadie hace nada al respecto, el miedo posee a la población.", "Ser historiador en esta época supone un gran riesgo", "\"No se meta donde nadie lo llamó\"", "Pero un verdadero historiador contará la historia tal cual ocurrió...", "Solo si lograra sobrevivir a la adversidad."])
+showing_conversation = false
+
+[node name="Text" type="Label" parent="ChatBubble"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 11.0
+offset_bottom = 49.0
+label_settings = SubResource("LabelSettings_00cak")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

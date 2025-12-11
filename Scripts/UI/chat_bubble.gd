@@ -1,9 +1,13 @@
 extends Control  # Supongamos que este script está en un nodo Control que es tu caja de diálogo
 
+enum OriginPoint { BOTTOMRIGHT, BOTTOMLEFT, TOPRIGHT, TOPLEFT }
+
+signal on_conversation_end
+
 @export var typing_speed := 0.05  # segundos por letra
 @export var max_length := 400
 @export var max_height := 80
-@export var message : Array[String] = []
+@export_multiline var message : Array[String] = []
 @export var showing_conversation := true
 
 var min_length : float
@@ -47,7 +51,6 @@ func show_text(text: String) -> void:
 	label.text = ""  # limpiar al principio
 
 func _process(_delta: float) -> void:
-	
 	if typing:
 		# cada ciclo agregamos letra si hay más
 		if char_index < full_text.length():
@@ -108,6 +111,7 @@ func _input(event):
 				label.size.y = self.size.y - self.patch_margin_bottom
 				self.position.x = original_x
 				self.position.y = original_y
+				on_conversation_end.emit()
 				return
 			show_text(message[conversation_index])
 			conversation_index += 1

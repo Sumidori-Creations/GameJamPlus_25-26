@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4v2dg2lgaepc"]
+[gd_scene load_steps=8 format=3 uid="uid://c4v2dg2lgaepc"]
 
-[ext_resource type="Texture2D" uid="uid://bf0rreiuljikg" path="res://Assets/Test/rogues.png" id="1_cxml1"]
+[ext_resource type="Texture2D" uid="uid://3wfkhaj7dm2x" path="res://Assets/Art/Thomas Van Der Zug/Thomas.png" id="1_cxml1"]
 
 [sub_resource type="GDScript" id="GDScript_jeuoc"]
 script/source = "extends CharacterBody2D
@@ -48,15 +48,20 @@ func _on_recollection_hitbox_area_entered(area: Area2D) -> void:
 		pickup_item.emit(area)
 "
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1px8v"]
-atlas = ExtResource("1_cxml1")
-region = Rect2(32, 128, 32, 32)
+[sub_resource type="Gradient" id="Gradient_cxml1"]
+colors = PackedColorArray(0, 0, 0, 0.24705882, 1, 1, 1, 0.21568628)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jeuoc"]
+gradient = SubResource("Gradient_cxml1")
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1efiq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1px8v")
+"texture": ExtResource("1_cxml1")
 }],
 "loop": true,
 "name": &"default",
@@ -64,7 +69,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_scnyp"]
-size = Vector2(23, 25)
+size = Vector2(22, 25)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxml1"]
 radius = 20.0
@@ -75,14 +80,22 @@ motion_mode = 1
 script = SubResource("GDScript_jeuoc")
 velocidad_movimiento = 150.0
 
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, 3.500001)
+scale = Vector2(0.34375, 0.39062503)
+texture = SubResource("GradientTexture2D_jeuoc")
+
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_1efiq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 2.5)
+visible = false
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_scnyp")
 
 [node name="RecollectionHitbox" type="Area2D" parent="."]
+visible = false
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RecollectionHitbox"]

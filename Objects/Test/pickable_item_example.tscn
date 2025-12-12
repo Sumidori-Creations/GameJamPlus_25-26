@@ -44,6 +44,7 @@ image = ExtResource("1_0ms04")
 texture = ExtResource("1_0ms04")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_rrf2l")
 

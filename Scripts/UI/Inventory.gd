@@ -5,6 +5,9 @@ const INVENTORY_BOTTOM_LIMIT = 4
 const INVENTORY_RIGHT_LIMIT = 9
 const INVENTORY_LEFT_LIMIT = 0
 
+@export var player_node : CharacterBody2D
+@export var items_node : Node2D
+
 @onready var slots = $Inventory/Slots
 @onready var hotbar_slots = $Hotbar/Slots
 @onready var cursor = $Cursor
@@ -149,6 +152,7 @@ func add_item(item: Area2D) -> void:
 	item.queue_free()
 
 func drop_item() -> void:
+	return
 	var actual_slot = get_slot(cursor_pos[0], cursor_pos[1])
 	if !actual_slot.ocupado and !holding_item:
 		return
@@ -161,10 +165,9 @@ func drop_item() -> void:
 	placed_item.amount = holding_item_amount if holding_item else actual_slot.item_amount
 	placed_item.stack_limit = item_to_place.stack_limit
 	placed_item.image = item_to_place.get_node("Sprite").texture
-	var player = get_tree().current_scene.find_child("PlayerTest", true, false)
-	placed_item.position = player.position
+	placed_item.position = player_node.position
 	placed_item.pickable = false
-	get_tree().current_scene.find_child("Items", true, false).add_child(placed_item)
+	items_node.add_child(placed_item)
 	if holding_item:
 		holding_item = null
 		holding_item_amount = 0

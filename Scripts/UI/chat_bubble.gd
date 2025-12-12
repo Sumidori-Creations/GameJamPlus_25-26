@@ -5,13 +5,13 @@ enum OriginPoint { BOTTOMRIGHT, BOTTOMLEFT, TOPRIGHT, TOPLEFT }
 signal on_conversation_end
 
 @export var typing_speed := 0.05  # segundos por letra
-@export var max_length := 400
-@export var max_height := 80
+#@export var max_length := 400
+#@export var max_height := 80
 @export_multiline var message : Array[String] = []
 @export var showing_conversation := true
 
-var min_length : float
-var min_height : float
+#var min_length : float
+#var min_height : float
 var full_text := ""
 var display_text := ""
 var char_index := 0
@@ -20,23 +20,23 @@ var font : Font
 var conversation_index := 0
 
 @onready var label : Label = $Text
-@onready var original_x = position.x
-@onready var original_y = position.y
+#@onready var original_x = position.x
+#@onready var original_y = position.y
 
 func _ready() -> void:
 	font = label.get_theme_font("font")
 	#min_length = font.get_string_size("Hola").x + self.patch_margin_left + self.patch_margin_right 
 	#min_height = font.get_height() + self.patch_margin_bottom + self.patch_margin_top 
-	min_length = max_length
-	min_height = max_height
-	if self.size.x < min_length:
-		self.position.x -= min_length - self.size.x
-		self.size.x = min_length
-		original_x = self.position.x
-	if self.size.y < min_height:
-		self.position.y -= min_height - self.size.y
-		self.size.y = min_height
-		original_y = self.position.y
+	#min_length = max_length
+	#min_height = max_height
+	#if self.size.x < min_length:
+		#self.position.x -= min_length - self.size.x
+		#self.size.x = min_length
+		#original_x = self.position.x
+	#if self.size.y < min_height:
+		#self.position.y -= min_height - self.size.y
+		#self.size.y = min_height
+		#original_y = self.position.y
 	label.size.x = self.size.x - self.patch_margin_right
 	label.size.y = self.size.y - self.patch_margin_bottom
 	if showing_conversation:
@@ -63,34 +63,34 @@ func _process(_delta: float) -> void:
 			# ya terminamos de escribir todo
 			typing = false
 
-func handle_autoWrap():
-	var text_length = font.get_string_size(label.text).x
-	var text_height = font.get_multiline_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, label.size.x).y + font.get_height()
-	if text_length >= max_length and label.size.x < max_length:
-		var difference = abs(max_length - label.size.x)
-		self.size.x += difference
-		label.size.x += difference
-		self.position.x -= difference
-		while text_length > max_length and label.size.y < max_height:
-			self.size.y += font.get_height()
-			label.size.y += font.get_height()
-			self.position.y -= font.get_height()
-			text_length -= max_length			
-	elif label.size.x < text_length:
-		var difference = abs(text_length - label.size.x)
-		if difference + self.size.x <= max_length:
-			self.size.x += difference
-			label.size.x += difference
-			self.position.x -= difference
-	if label.size.y < text_height:
-		var difference = abs(text_height - label.size.y)
-		if difference + self.size.y <= max_height:
-			self.size.y += difference
-			label.size.y += difference
-			self.position.y -= difference
+#func handle_autoWrap():
+	#var text_length = font.get_string_size(label.text).x
+	#var text_height = font.get_multiline_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, label.size.x).y + font.get_height()
+	#if text_length >= max_length and label.size.x < max_length:
+		#var difference = abs(max_length - label.size.x)
+		#self.size.x += difference
+		#label.size.x += difference
+		#self.position.x -= difference
+		#while text_length > max_length and label.size.y < max_height:
+			#self.size.y += font.get_height()
+			#label.size.y += font.get_height()
+			#self.position.y -= font.get_height()
+			#text_length -= max_length			
+	#elif label.size.x < text_length:
+		#var difference = abs(text_length - label.size.x)
+		#if difference + self.size.x <= max_length:
+			#self.size.x += difference
+			#label.size.x += difference
+			#self.position.x -= difference
+	#if label.size.y < text_height:
+		#var difference = abs(text_height - label.size.y)
+		#if difference + self.size.y <= max_height:
+			#self.size.y += difference
+			#label.size.y += difference
+			#self.position.y -= difference
 
 func _input(event):
-	if Global.state != Global.GameState.DIALOGUE:
+	if Global.state != Global.GameState.DIALOGUE or !showing_conversation:
 		return
 	# si el jugador presiona una tecla (ejemplo: espacio), y aún está escribiendo, saltar al final
 	if event.is_action_pressed("ui_accept"):
@@ -105,12 +105,12 @@ func _input(event):
 				conversation_index = 0
 				showing_conversation = false;
 				show_text("")
-				self.size.x = min_length
-				self.size.y = min_height
+				#self.size.x = min_length
+				#self.size.y = min_height
 				label.size.x = self.size.x - self.patch_margin_right
 				label.size.y = self.size.y - self.patch_margin_bottom
-				self.position.x = original_x
-				self.position.y = original_y
+				#self.position.x = original_x
+				#self.position.y = original_y
 				on_conversation_end.emit()
 				return
 			show_text(message[conversation_index])

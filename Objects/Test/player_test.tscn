@@ -72,7 +72,7 @@ animations = [{
 size = Vector2(22, 25)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxml1"]
-radius = 20.0
+radius = 13.009612
 
 [node name="PlayerTest" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 31
@@ -90,15 +90,14 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_1efiq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_scnyp")
 
 [node name="RecollectionHitbox" type="Area2D" parent="."]
-visible = false
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RecollectionHitbox"]
+position = Vector2(0, 3.5)
 shape = SubResource("CircleShape2D_cxml1")
 metadata/_edit_lock_ = true
 

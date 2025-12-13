@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://lrb3slgt6bj7"]
+
+[ext_resource type="Script" uid="uid://d04wvsd7hgeob" path="res://Scripts/UI/chat_bubble.gd" id="1_84mc6"]
+[ext_resource type="FontFile" uid="uid://c4304guxupqij" path="res://Assets/UI/Fonts/Baskic8.otf" id="2_k240j"]
+
+[sub_resource type="GDScript" id="GDScript_84mc6"]
+script/source = "extends ColorRect
+
+func _ready() -> void:
+	await get_tree().create_timer(1.5).timeout
+	$ChatBubble.on_conversation_end.connect(end_cinematic)
+	$ChatBubble.start_talking()
+
+func end_cinematic() -> void:
+	Global.transitionTo(\"res://Scenes/main_menu.tscn\", self)
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_00cak"]
+font = ExtResource("2_k240j")
+font_size = 32
+
+[node name="Node" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = SubResource("GDScript_84mc6")
+
+[node name="ChatBubble" type="NinePatchRect" parent="."]
+z_index = 5
+layout_mode = 0
+offset_left = 120.0
+offset_top = 80.0
+offset_right = 520.0
+offset_bottom = 280.0
+region_rect = Rect2(428, 176, 52, 57)
+script = ExtResource("1_84mc6")
+message = Array[String](["Y así comienza la historia de nuestro protagonista", "Thomas Von Der Zug
+El cronista errante", "Viajará al pasado para arreglar su presente", "Y borrará de la historia la raíz de todos los males", "Gracias por jugar nuestra Demo para el Kuri 25", "El viaje de Thomas continuara...."])
+showing_conversation = false
+
+[node name="Text" type="Label" parent="ChatBubble"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 11.0
+offset_bottom = 49.0
+label_settings = SubResource("LabelSettings_00cak")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

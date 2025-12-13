@@ -15,11 +15,10 @@ freeze_mode = 1
 script = ExtResource("1_xfvba")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-3.1066587, 0)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.08, 0.08)
 texture = ExtResource("1_vtlo1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.21950531, -0.93118286)
-scale = Vector2(0.2, 0.2)
+position = Vector2(1, 0)
+scale = Vector2(0.08, 0.08)
 shape = SubResource("RectangleShape2D_xfvba")

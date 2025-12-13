@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://cop2hy7eq3p2j"]
+[gd_scene load_steps=28 format=4 uid="uid://cop2hy7eq3p2j"]
 
 [ext_resource type="Texture2D" uid="uid://crkyddo8axims" path="res://Assets/Test/tiles.png" id="1_mt68x"]
 [ext_resource type="Texture2D" uid="uid://cnj01cmrkfn7b" path="res://Assets/Top_Down_Adventure_Pack_v.1.0/Overworld_Tileset.png" id="2_7ruak"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://chqxe05nr7jd4" path="res://Objects/Transitions/cinematicBars.tscn" id="5_ocwd1"]
 [ext_resource type="PackedScene" uid="uid://b8fusymb152j4" path="res://Objects/UI/inventory_ui.tscn" id="5_rusq3"]
 [ext_resource type="Script" uid="uid://b8ejosyifkp66" path="res://Scripts/LevelElements/dialogue_cinematic.gd" id="7_v7e4s"]
+[ext_resource type="Script" uid="uid://vebx1drpgsoq" path="res://Scripts/camera_2d.gd" id="7_w6esk"]
 [ext_resource type="PackedScene" uid="uid://bj62tsu1684pp" path="res://Objects/UI/chat_bubble.tscn" id="7_yxmer"]
 [ext_resource type="Texture2D" uid="uid://b4hbqkk1boscm" path="res://Assets/UI/Chat BalloonsBubbles - Pixel Art/Chat-5 - flipped.png" id="8_v7e4s"]
 [ext_resource type="Texture2D" uid="uid://bwrtw101p5gsm" path="res://Assets/UI/Chat BalloonsBubbles - Pixel Art/Chat-4 - flipped.png" id="9_s7vnp"]
@@ -19,22 +20,16 @@ script/source = "extends Node2D
 
 @export var player_position : Vector2
 
-@onready var camera = $Camera2D
 @onready var player : CharacterBody2D = $Player
-@onready var inventory = $Camera2D/Inventory
+@onready var inventory = $UI/Inventory
 @onready var cinematic_bars = $CinematicBars
 @onready var event_triggers = $EventsTriggers
 @onready var event_manager = $Events
 
 func _ready() -> void:
-	camera.position = player.position
 	player.pickup_item.connect(add_item)
 	cinematic_bars.end()
 	player.position = player_position
-
-func _process(_delta: float) -> void:
-	camera.position = player.position
-	pass
 
 func add_item(area: Area2D) -> void:
 	inventory.add_item(area)
@@ -42,7 +37,7 @@ func add_item(area: Area2D) -> void:
 
 func _on_level_exit_body_entered(_body: Node2D) -> void:
 	Global.state = Global.GameState.CINEMATIC
-	Global.transitionTo(\"res://Scenes/Levels/train_found.tscn\", self)
+	Global.transitionTo(\"res://Scenes/Levels/present_train_temple.tscn\", self)
 
 func _on_conversation_body_entered(body: Node2D) -> void:
 	if body.name != \"Player\": return
@@ -733,21 +728,35 @@ tile_set = SubResource("TileSet_yxmer")
 
 [node name="CinematicBars" parent="." instance=ExtResource("5_ocwd1")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-827, 584)
-limit_enabled = false
+[node name="UI" type="CanvasLayer" parent="."]
+offset = Vector2(320, 180)
+transform = Transform2D(1, 0, 0, 1, 320, 180)
 
-[node name="Inventory" parent="Camera2D" node_paths=PackedStringArray("player_node", "items_node") instance=ExtResource("5_rusq3")]
+[node name="Inventory" parent="UI" node_paths=PackedStringArray("player_node", "items_node") instance=ExtResource("5_rusq3")]
+offset_left = -320.0
+offset_top = -180.0
+offset_right = -320.0
+offset_bottom = -180.0
 player_node = NodePath("../../Player")
 items_node = NodePath("../../Collectibles")
 
-[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+[node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = 1001
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0.054666612, 0.41, 0.16470589)
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+limit_enabled = false
+script = ExtResource("7_w6esk")
+target_path = NodePath("../Player")
 
 [node name="EventsTriggers" type="Node" parent="."]
 
@@ -795,7 +804,7 @@ shape = SubResource("RectangleShape2D_rusq3")
 
 [node name="Events" type="Node" parent="."]
 
-[node name="conversation" type="Node2D" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
+[node name="conversation" type="CanvasLayer" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
 visible = false
 script = ExtResource("7_v7e4s")
 cinematic_bars = NodePath("../../CinematicBars")
@@ -830,7 +839,7 @@ patch_margin_bottom = 12
 message = Array[String](["no..."])
 showing_conversation = false
 
-[node name="conversation1" type="Node2D" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
+[node name="conversation1" type="CanvasLayer" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
 visible = false
 script = ExtResource("7_v7e4s")
 cinematic_bars = NodePath("../../CinematicBars")
@@ -862,7 +871,7 @@ patch_margin_bottom = 12
 message = Array[String](["No lo escuches", "Esta es tu oportunidad de hacer el cambio", "No la desperdicies..."])
 showing_conversation = false
 
-[node name="conversation2" type="Node2D" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
+[node name="conversation2" type="CanvasLayer" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
 visible = false
 script = ExtResource("7_v7e4s")
 cinematic_bars = NodePath("../../CinematicBars")
@@ -894,7 +903,7 @@ patch_margin_bottom = 12
 message = Array[String](["Por favor...", "Hay suficiente espacio para pasar a través de esos arboles"])
 showing_conversation = false
 
-[node name="conversation3" type="Node2D" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
+[node name="conversation3" type="CanvasLayer" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
 visible = false
 script = ExtResource("7_v7e4s")
 cinematic_bars = NodePath("../../CinematicBars")
@@ -930,7 +939,7 @@ patch_margin_right = 10
 message = Array[String](["Millones morirán", "Es un poder que nadie debería poseer", "Abandona este lugar"])
 showing_conversation = false
 
-[node name="conversation4" type="Node2D" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
+[node name="conversation4" type="CanvasLayer" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
 visible = false
 script = ExtResource("7_v7e4s")
 cinematic_bars = NodePath("../../CinematicBars")
@@ -973,7 +982,7 @@ texture = ExtResource("11_uftma")
 message = Array[String](["BASTA!!"])
 showing_conversation = false
 
-[node name="conversation5" type="Node2D" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
+[node name="conversation5" type="CanvasLayer" parent="Events" node_paths=PackedStringArray("cinematic_bars", "player")]
 visible = false
 script = ExtResource("7_v7e4s")
 cinematic_bars = NodePath("../../CinematicBars")

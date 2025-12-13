@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 @onready var dialogues : Array[Node]
 @export var cinematic_bars : CanvasLayer
@@ -12,8 +12,6 @@ func _ready() -> void:
 
 func startEvent() -> void:
 	self.visible = true
-	self.position.x = player.position.x - 320
-	self.position.y = player.position.y - 180
 	await get_tree().create_timer(1.5).timeout
 	dialogues.back().start_talking()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c6aoi02xag017"]
+[gd_scene load_steps=36 format=3 uid="uid://c6aoi02xag017"]
 
 [ext_resource type="Script" uid="uid://b5klcpbvma4c0" path="res://Scripts/movimiento.gd" id="1_qlhm3"]
 [ext_resource type="Texture2D" uid="uid://bua4nnbwqyxg6" path="res://Assets/Art/Thomas Van Der Zug/Thomas_front.png" id="2_iotiu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dd4bp2l1ayu6i" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_2.png" id="6_46y0f"]
 [ext_resource type="Texture2D" uid="uid://bmmrcggaan6wv" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_3.png" id="7_41cah"]
 [ext_resource type="AudioStream" uid="uid://8slkvgdajidq" path="res://Assets/SFX/step-1.wav" id="8_41cah"]
+[ext_resource type="Script" uid="uid://vebx1drpgsoq" path="res://Objects/camera_2d.gd" id="8_bujv4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iotiu"]
 animations = [{
@@ -298,6 +299,7 @@ limit_left = -1300
 limit_top = -1125
 limit_right = 315
 limit_bottom = 1875
+script = ExtResource("8_bujv4")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CharacterBody2D"]
 stream = ExtResource("8_41cah")

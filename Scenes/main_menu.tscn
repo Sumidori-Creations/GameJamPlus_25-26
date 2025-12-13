@@ -119,6 +119,12 @@ text = "Jugar"
 visible = false
 layout_mode = 1
 
+[node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="pressed" from="creditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="playButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="volver" from="Credits" to="." method="_on_credits_volver"]

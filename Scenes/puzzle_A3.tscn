@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://p6tvin8xa6pp"]
+[gd_scene load_steps=48 format=4 uid="uid://p6tvin8xa6pp"]
 
 [ext_resource type="Texture2D" uid="uid://38tegvsw027p" path="res://Assets/Art/Puzzle/malla.png" id="1_0l4y8"]
 [ext_resource type="PackedScene" uid="uid://dm0ldwnm4gj7t" path="res://Objects/pared.tscn" id="2_jstx5"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://5kich3q4mssr" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_1.png" id="10_4py33"]
 [ext_resource type="Texture2D" uid="uid://dd4bp2l1ayu6i" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_2.png" id="11_msiy6"]
 [ext_resource type="Texture2D" uid="uid://bmmrcggaan6wv" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_3.png" id="12_bngdd"]
+[ext_resource type="Script" uid="uid://3f35ks736o3m" path="res://Scenes/camera_2d.gd" id="13_w2he5"]
 [ext_resource type="AudioStream" uid="uid://8slkvgdajidq" path="res://Assets/SFX/step-1.wav" id="13_yq7d0"]
 
 [sub_resource type="GDScript" id="GDScript_sv3pp"]
@@ -1335,6 +1336,7 @@ limit_left = -1300
 limit_top = -1125
 limit_right = 315
 limit_bottom = 1875
+script = ExtResource("13_w2he5")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player/CharacterBody2D"]
 stream = ExtResource("13_yq7d0")
@@ -1347,10 +1349,10 @@ bus = &"Music"
 
 [connection signal="body_entered" from="Paredes/gear" to="Paredes/gear" method="_on_body_entered"]
 [connection signal="body_exited" from="Paredes/gear" to="Paredes/gear" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@45053" to="Paredes/@Area2D@45053" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@45053" to="Paredes/@Area2D@45053" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@45230" to="Paredes/@Area2D@45230" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@45230" to="Paredes/@Area2D@45230" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@45231" to="Paredes/@Area2D@45231" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@45231" to="Paredes/@Area2D@45231" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@24432" to="Paredes/@Area2D@24432" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@24432" to="Paredes/@Area2D@24432" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@24609" to="Paredes/@Area2D@24609" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@24609" to="Paredes/@Area2D@24609" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@24610" to="Paredes/@Area2D@24610" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@24610" to="Paredes/@Area2D@24610" method="_on_body_exited"]
 [connection signal="finished" from="Player/CharacterBody2D/AudioStreamPlayer" to="Player/CharacterBody2D" method="_on_audio_stream_player_finished"]

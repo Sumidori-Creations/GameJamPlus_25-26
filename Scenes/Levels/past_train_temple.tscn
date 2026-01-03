@@ -684,13 +684,11 @@ tile_set = SubResource("TileSet_ueuro")
 offset = Vector2(320, 180)
 transform = Transform2D(1, 0, 0, 1, 320, 180)
 
-[node name="Inventory" parent="UI" node_paths=PackedStringArray("player_node", "items_node") instance=ExtResource("7_pok3y")]
+[node name="Inventory" parent="UI" instance=ExtResource("7_pok3y")]
 offset_left = -320.0
 offset_top = -180.0
 offset_right = -320.0
 offset_bottom = -180.0
-player_node = NodePath("")
-items_node = NodePath("")
 
 [node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = 1001

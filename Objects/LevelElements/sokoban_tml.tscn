@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpw04uupstsll"]
+
+[ext_resource type="PackedScene" uid="uid://ceo1sj2gq7me" path="res://Objects/LevelElements/base_tml_provider.tscn" id="1_08oi4"]
+
+[sub_resource type="GDScript" id="GDScript_k5d0v"]
+script/source = "extends Node2D
+
+var grid := {}
+
+@onready var TML : TileMapLayer = $TileMapLayer
+@onready var Boxes : Node2D = $Boxes
+
+func _ready() -> void:
+	for cell in TML.get_used_cells():
+		var tile_data := TML.get_cell_tile_data(cell)
+		if tile_data == null:
+			continue
+		var is_wall := tile_data.get_collision_polygons_count(0) > 0
+		
+		grid[cell] = {
+			\"wall\": is_wall,
+			\"box\": false
+		}
+		
+	for box:SKB_box in Boxes.get_children():
+		grid[box.grid_pos] = {
+			\"wall\": false,
+			\"box\": true
+		}
+		box.check_space.connect(check_space)
+
+func check_space(box: SKB_box, direction: Vector2i):
+	var box_pos = box.grid_pos
+	var pos = box_pos + direction
+	if not grid.has(pos):
+		box.can_move = false
+	elif grid[pos].wall or grid[pos].box:
+		box.can_move = false
+	else:
+		box.can_move = true
+		grid[box_pos].box = false
+		grid[pos].box = true
+"
+
+[node name="Sokoban_TML" type="Node2D"]
+script = SubResource("GDScript_k5d0v")
+
+[node name="TileMapLayer" parent="." instance=ExtResource("1_08oi4")]
+
+[node name="Boxes" type="Node2D" parent="."]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://7xysvs3q7eea"]
+
+[ext_resource type="Texture2D" uid="uid://b8tuxhh5gejhd" path="res://Assets/Test/box-test.png" id="1_7v6jt"]
+[ext_resource type="Script" uid="uid://dmcohe6hac5d3" path="res://Scripts/LevelElements/sokoban_box.gd" id="2_m8gcj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8gcj"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vjx5s"]
+size = Vector2(22, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e00dj"]
+size = Vector2(22, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27gup"]
+size = Vector2(3, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t607b"]
+size = Vector2(3, 22)
+
+[node name="Box_test" type="Sprite2D"]
+texture = ExtResource("1_7v6jt")
+script = ExtResource("2_m8gcj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_m8gcj")
+
+[node name="trigger_up" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_up"]
+position = Vector2(0, -15.5)
+shape = SubResource("RectangleShape2D_vjx5s")
+
+[node name="trigger_down" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_down"]
+position = Vector2(0, 15.5)
+shape = SubResource("RectangleShape2D_e00dj")
+
+[node name="trigger_left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_left"]
+position = Vector2(-15.5, 0)
+shape = SubResource("RectangleShape2D_27gup")
+
+[node name="trigger_right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_right"]
+position = Vector2(15.5, 0)
+shape = SubResource("RectangleShape2D_t607b")
+
+[connection signal="body_entered" from="trigger_up" to="." method="_on_trigger_body_entered" binds= [Vector2i(0, 1)]]
+[connection signal="body_exited" from="trigger_up" to="." method="_on_trigger_body_exited"]
+[connection signal="body_entered" from="trigger_down" to="." method="_on_trigger_body_entered" binds= [Vector2i(0, -1)]]
+[connection signal="body_exited" from="trigger_down" to="." method="_on_trigger_body_exited"]
+[connection signal="body_entered" from="trigger_left" to="." method="_on_trigger_body_entered" binds= [Vector2i(1, 0)]]
+[connection signal="body_exited" from="trigger_left" to="." method="_on_trigger_body_exited"]
+[connection signal="body_entered" from="trigger_right" to="." method="_on_trigger_body_entered" binds= [Vector2i(-1, 0)]]
+[connection signal="body_exited" from="trigger_right" to="." method="_on_trigger_body_exited"]

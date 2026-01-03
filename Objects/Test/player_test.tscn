@@ -13,28 +13,9 @@ signal pickup_item(item: Area2D)
 func _physics_process(delta):
 	if Global.state != Global.GameState.PLAYING:
 		return
-	# Input
-	var direccion_input := Vector2.ZERO
-	var input_derecha   := Input.is_action_pressed(\"right\")
-	var input_izquierda := Input.is_action_pressed(\"left\")
-	var input_abajo     := Input.is_action_pressed(\"down\")
-	var input_arriba    := Input.is_action_pressed(\"up\")
-
-	# Prioridad: Horizontal > Vertical
-	if input_derecha:
-		direccion_input = Vector2.RIGHT
-	elif input_izquierda:
-		direccion_input = Vector2.LEFT
-	elif input_abajo:
-		direccion_input = Vector2.DOWN
-	elif input_arriba:
-		direccion_input = Vector2.UP
-
-	# Movimiento
-	if direccion_input != Vector2.ZERO:
-		velocity = direccion_input * velocidad_movimiento
-	else:
-		velocity = Vector2.ZERO
+	
+	var direccion_input := Input.get_vector(\"left\", \"right\", \"up\", \"down\")
+	velocity = direccion_input * velocidad_movimiento
 	
 	var collision = move_and_collide(velocity * delta)
 

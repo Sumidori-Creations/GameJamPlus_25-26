@@ -50,25 +50,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Global.state != Global.GameState.PLAYING:
 		return
-	# --- Input 4 direcciones (prioridad: Horizontal > Vertical) ---
-	var direccion_input := Vector2.ZERO
-	var input_derecha   := Input.is_action_pressed("right")
-	var input_izquierda := Input.is_action_pressed("left")
-	var input_abajo     := Input.is_action_pressed("down")
-	var input_arriba    := Input.is_action_pressed("up")
-
-	if input_derecha:
-		idle_direction = "side"
-		direccion_input = Vector2.RIGHT
-	elif input_izquierda:
-		idle_direction = "side"
-		direccion_input = Vector2.LEFT
-	elif input_abajo:
-		idle_direction = "front"
-		direccion_input = Vector2.DOWN
-	elif input_arriba:
-		idle_direction = "back"
-		direccion_input = Vector2.UP
+		
+	var direccion_input := Input.get_vector("left", "right", "up", "down")
+	velocity = direccion_input * velocidad_movimiento
 
 	# --- Animaciones ---
 	if direccion_input != Vector2.ZERO:

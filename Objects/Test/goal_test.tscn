@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1x7uml7ixnpb"]
+
+[ext_resource type="Script" uid="uid://5dr81p212jgh" path="res://Scripts/LevelElements/sokoban_goal.gd" id="1_lj51p"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8x6s6"]
+load_path = "res://.godot/imported/box-test.png-5cbc0adcd64a71183912f98a365f7ed2.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj51p"]
+
+[node name="goal_test" type="Sprite2D"]
+modulate = Color(0.45559996, 0.48552, 0.68, 1)
+texture = SubResource("CompressedTexture2D_8x6s6")
+script = ExtResource("1_lj51p")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lj51p")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

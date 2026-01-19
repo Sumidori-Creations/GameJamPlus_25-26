@@ -1,9 +1,7 @@
-extends Sprite2D
+extends SKB_obj
 class_name SKB_box
 
-@export var grid_pos : Vector2i
-@export var goal_pos : Vector2i
-@export var box_size := 32
+@export var box_id : String
 
 signal check_space
 
@@ -12,12 +10,12 @@ var is_moving := false
 var push_direction : Vector2i = Vector2i(0, 0)
 
 func move_to(dir: Vector2i) -> void:
-	var target_pos = self.position + Vector2(dir)*box_size 
+	var target_pos = self.position + Vector2(dir)*sprite_size 
 	grid_pos += dir
 	is_moving = true
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", target_pos, 1.0)
+	tween.tween_property(self, "position", target_pos, 0.6)
 
 	tween.finished.connect(func():
 		is_moving = false

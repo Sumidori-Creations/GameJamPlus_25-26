@@ -8,7 +8,7 @@ var reached_goals := 0
 @onready var Boxes : Node2D = $Boxes
 @onready var Goals : Node2D = $Goals
 
-signal puzzle_solved
+#signal puzzle_solved
 
 func _ready() -> void:
 	for cell in TML.get_used_cells():
@@ -34,11 +34,11 @@ func _ready() -> void:
 		
 	for goal:SKB_goal in Goals.get_children():
 		calculate_grid_pos(goal)
-		grid[goal.grid_pos] = {
+		grid_goals[goal.grid_pos] = {
 			"fullfilled": false
 		}
-		goal.reached_goal.connect(goal_reached)
-		goal.left_goal.connect(goal_left)
+		#goal.reached_goal.connect(goal_reached)
+		#goal.left_goal.connect(goal_left)
 
 func check_space(box: SKB_box, direction: Vector2i):
 	var box_pos = box.grid_pos
@@ -52,15 +52,15 @@ func check_space(box: SKB_box, direction: Vector2i):
 		grid[box_pos].box = false
 		grid[pos].box = true
 
-func goal_reached(goal: Vector2i):
-	grid_goals[goal].fullfilled = true
-	reached_goals += 1
-	if reached_goals == grid_goals.size():
-		puzzle_solved.emit()
-	
-func goal_left(goal: Vector2i):
-	grid_goals[goal].fullfilled = false
-	reached_goals -= 1
+#func goal_reached(goal: Vector2i):
+	#grid_goals[goal].fullfilled = true
+	#reached_goals += 1
+	#if reached_goals == grid_goals.size():
+		#puzzle_solved.emit()
+	#
+#func goal_left(goal: Vector2i):
+	#grid_goals[goal].fullfilled = false
+	#reached_goals -= 1
 
 func calculate_grid_pos(object: SKB_obj):
 	var offset = float(object.sprite_size) / 2

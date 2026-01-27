@@ -8,6 +8,8 @@ script = ExtResource("1_k5d0v")
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_08oi4")]
 
+[node name="Goals" type="Node2D" parent="."]
+
 [node name="Boxes" type="Node2D" parent="."]
 
-[node name="Goals" type="Node2D" parent="."]
+[node name="CompletionFunctions" type="Node2D" parent="."]

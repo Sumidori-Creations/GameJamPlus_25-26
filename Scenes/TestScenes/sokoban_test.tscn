@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://dddn25yxd2c8t"]
+[gd_scene load_steps=15 format=4 uid="uid://dddn25yxd2c8t"]
 
 [ext_resource type="PackedScene" uid="uid://cpw04uupstsll" path="res://Objects/LevelElements/sokoban_tml.tscn" id="1_qv72c"]
 [ext_resource type="Texture2D" uid="uid://crkyddo8axims" path="res://Assets/Test/tiles.png" id="1_s1uuv"]
 [ext_resource type="Texture2D" uid="uid://cnj01cmrkfn7b" path="res://Assets/Top_Down_Adventure_Pack_v.1.0/Overworld_Tileset.png" id="2_7s34l"]
 [ext_resource type="PackedScene" uid="uid://7xysvs3q7eea" path="res://Objects/Test/box_test.tscn" id="2_n0sxd"]
+[ext_resource type="PackedScene" uid="uid://d1x7uml7ixnpb" path="res://Objects/Test/goal_test.tscn" id="3_n0sxd"]
 [ext_resource type="Texture2D" uid="uid://c5w16o04s5hk7" path="res://Assets/Top_Down_Adventure_Pack_v.1.0/Dungeon_Tileset.png" id="3_qv72c"]
 [ext_resource type="PackedScene" uid="uid://c4v2dg2lgaepc" path="res://Objects/Test/player_test.tscn" id="4_n0sxd"]
 [ext_resource type="Script" uid="uid://vebx1drpgsoq" path="res://Scripts/camera_2d.gd" id="5_mvpe2"]
@@ -22,6 +23,29 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name != \"Player\": return
 	Global.state = Global.GameState.CINEMATIC
 	Global.transitionTo(\"res://Scenes/Levels/demo_end.tscn\", self)
+"
+
+[sub_resource type="GDScript" id="GDScript_qv72c"]
+script/source = "extends Node2D
+
+@export var goals : int
+@export var reached_goals : int = 0
+
+var is_level_completed = false
+
+func _on_level_complete():
+	if !is_level_completed:
+		is_level_completed = true
+		#Este es un ejemplo, aquí iría la lógica del resultado de completar el puzzle
+		Global.transitionTo(\"res://Scenes/main_menu.tscn\", self)
+	
+func _on_goal_reached():
+	reached_goals += 1
+	if reached_goals == goals:
+		_on_level_complete()
+	
+func _on_goal_left():
+	reached_goals -= 1
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6028s"]
@@ -651,8 +675,89 @@ player_position = Vector2(320, 96)
 [node name="TileMapLayer" parent="Sokoban_TML" index="0"]
 tile_map_data = PackedByteArray("AAD/////HgABAAIAAAAAAP//HgABAAIAAAABAP//HgABAAIAAAACAP//HgABAAIAAAADAP//HgABAAIAAAAEAP//HgABAAIAAAAFAP//HgABAAIAAAAGAP//HgABAAIAAAAHAP//HgABAAIAAAAIAP//HgABAAIAAAAJAP//HgABAAIAAAAKAP//HgABAAIAAAALAP//HgABAAIAAAAMAP//HgABAAIAAAANAP//HgABAAIAAAAOAP//HgABAAIAAAAPAP//HgABAAIAAAAQAP//HgABAAIAAAARAP//HgABAAIAAAASAP//HgABAAIAAAATAP//HgABAAIAAAAUAP//HgABAAIAAAAUAAAAHgABAAIAAAAUAAEAHgABAAIAAAAUAAIAHgABAAIAAAAUAAMAHgABAAIAAAAUAAQAHgABAAIAAAAUAAUAHgABAAIAAAAUAAYAHgABAAIAAAAUAAcAHgABAAIAAAAUAAgAHgABAAIAAAAUAAkAHgABAAIAAAAUAAoAHgABAAIAAAAUAAsAHgABAAIAAAAUAAwAHgABAAIAAAATAAwAHgABAAIAAAASAAwAHgABAAIAAAARAAwAHgABAAIAAAAQAAwAHgABAAIAAAAPAAwAHgABAAIAAAAOAAwAHgABAAIAAAANAAwAHgABAAIAAAAMAAwAHgABAAIAAAALAAwAHgABAAIAAAAKAAwAHgABAAIAAAAJAAwAHgABAAIAAAAIAAwAHgABAAIAAAAHAAwAHgABAAIAAAAGAAwAHgABAAIAAAAFAAwAHgABAAIAAAAEAAwAHgABAAIAAAADAAwAHgABAAIAAAACAAwAHgABAAIAAAABAAwAHgABAAIAAAAAAAwAHgABAAIAAAD//wwAHgABAAIAAAD//wAAHgABAAIAAAD//wEAHgABAAIAAAD//wIAHgABAAIAAAD//wMAHgABAAIAAAD//wQAHgABAAIAAAD//wUAHgABAAIAAAD//wYAHgABAAIAAAD//wcAHgABAAIAAAD//wgAHgABAAIAAAD//wkAHgABAAIAAAD//woAHgABAAIAAAD//wsAHgABAAIAAAAAAAAAHgAHAAsAAAAAAAEAHgAHAAsAAAAAAAIAHgAHAAsAAAAAAAMAHgAHAAsAAAAAAAQAHgAHAAsAAAAAAAUAHgAHAAsAAAAAAAYAHgAHAAsAAAAAAAcAHgAHAAsAAAAAAAgAHgAHAAsAAAAAAAkAHgAHAAsAAAAAAAoAHgAHAAsAAAAAAAsAHgAHAAsAAAABAAAAHgAHAAsAAAABAAEAHgAHAAsAAAABAAIAHgAHAAsAAAABAAMAHgAHAAsAAAABAAQAHgAHAAsAAAABAAUAHgAHAAsAAAABAAYAHgAHAAsAAAABAAcAHgAHAAsAAAABAAgAHgAHAAsAAAABAAkAHgAHAAsAAAABAAoAHgAHAAsAAAABAAsAHgAHAAsAAAACAAAAHgAHAAsAAAACAAEAHgAHAAsAAAACAAIAHgAHAAsAAAACAAMAHgAHAAsAAAACAAQAHgAHAAsAAAACAAUAHgAHAAsAAAACAAYAHgAHAAsAAAACAAcAHgAHAAsAAAACAAgAHgAHAAsAAAACAAkAHgAHAAsAAAACAAoAHgAHAAsAAAACAAsAHgAHAAsAAAADAAAAHgAHAAsAAAADAAEAHgAHAAsAAAADAAIAHgAHAAsAAAADAAMAHgAHAAsAAAADAAQAHgAHAAsAAAADAAUAHgAHAAsAAAADAAYAHgAHAAsAAAADAAcAHgAHAAsAAAADAAgAHgAHAAsAAAADAAkAHgAHAAsAAAADAAoAHgAHAAsAAAADAAsAHgAHAAsAAAAEAAAAHgAHAAsAAAAEAAEAHgAHAAsAAAAEAAIAHgAHAAsAAAAEAAMAHgAHAAsAAAAEAAQAHgAHAAsAAAAEAAUAHgAHAAsAAAAEAAYAHgAHAAsAAAAEAAcAHgAHAAsAAAAEAAgAHgAHAAsAAAAEAAkAHgAHAAsAAAAEAAoAHgAHAAsAAAAEAAsAHgAHAAsAAAAFAAAAHgAHAAsAAAAFAAEAHgAHAAsAAAAFAAIAHgAHAAsAAAAFAAMAHgAHAAsAAAAFAAQAHgAHAAsAAAAFAAUAHgAHAAsAAAAFAAYAHgAHAAsAAAAFAAcAHgAHAAsAAAAFAAgAHgAHAAsAAAAFAAkAHgAHAAsAAAAFAAoAHgAHAAsAAAAFAAsAHgAHAAsAAAAGAAAAHgAHAAsAAAAGAAEAHgAHAAsAAAAGAAIAHgAHAAsAAAAGAAMAHgAHAAsAAAAGAAQAHgAHAAsAAAAGAAUAHgAHAAsAAAAGAAYAHgAHAAsAAAAGAAcAHgAHAAsAAAAGAAgAHgAHAAsAAAAGAAkAHgAHAAsAAAAGAAoAHgAHAAsAAAAGAAsAHgAHAAsAAAAHAAAAHgAHAAsAAAAHAAEAHgAHAAsAAAAHAAIAHgAHAAsAAAAHAAMAHgAHAAsAAAAHAAQAHgAHAAsAAAAHAAUAHgAHAAsAAAAHAAYAHgAHAAsAAAAHAAcAHgAHAAsAAAAHAAgAHgAHAAsAAAAHAAkAHgAHAAsAAAAHAAoAHgAHAAsAAAAHAAsAHgAHAAsAAAAIAAAAHgAHAAsAAAAIAAEAHgAHAAsAAAAIAAIAHgAHAAsAAAAIAAMAHgAHAAsAAAAIAAQAHgAHAAsAAAAIAAUAHgAHAAsAAAAIAAYAHgAHAAsAAAAIAAcAHgAHAAsAAAAIAAgAHgAHAAsAAAAIAAkAHgAHAAsAAAAIAAoAHgAHAAsAAAAIAAsAHgAHAAsAAAAJAAAAHgAHAAsAAAAJAAEAHgAHAAsAAAAJAAIAHgAHAAsAAAAJAAMAHgAHAAsAAAAJAAQAHgAHAAsAAAAJAAUAHgAHAAsAAAAJAAYAHgAHAAsAAAAJAAcAHgAHAAsAAAAJAAgAHgAHAAsAAAAJAAkAHgAHAAsAAAAJAAoAHgAHAAsAAAAJAAsAHgAHAAsAAAAKAAAAHgAHAAsAAAAKAAEAHgAHAAsAAAAKAAIAHgAHAAsAAAAKAAMAHgAHAAsAAAAKAAQAHgAHAAsAAAAKAAUAHgAHAAsAAAAKAAYAHgAHAAsAAAAKAAcAHgAHAAsAAAAKAAgAHgAHAAsAAAAKAAkAHgAHAAsAAAAKAAoAHgAHAAsAAAAKAAsAHgAHAAsAAAALAAAAHgAHAAsAAAALAAEAHgAHAAsAAAALAAIAHgAHAAsAAAALAAMAHgAHAAsAAAALAAQAHgAHAAsAAAALAAUAHgAHAAsAAAALAAYAHgAHAAsAAAALAAcAHgAHAAsAAAALAAgAHgAHAAsAAAALAAkAHgAHAAsAAAALAAoAHgAHAAsAAAALAAsAHgAHAAsAAAAMAAAAHgAHAAsAAAAMAAEAHgAHAAsAAAAMAAIAHgAHAAsAAAAMAAMAHgAHAAsAAAAMAAQAHgAHAAsAAAAMAAUAHgAHAAsAAAAMAAYAHgAHAAsAAAAMAAcAHgAHAAsAAAAMAAgAHgAHAAsAAAAMAAkAHgAHAAsAAAAMAAoAHgAHAAsAAAAMAAsAHgAHAAsAAAANAAAAHgAHAAsAAAANAAEAHgAHAAsAAAANAAIAHgAHAAsAAAANAAMAHgAHAAsAAAANAAQAHgAHAAsAAAANAAUAHgAHAAsAAAANAAYAHgAHAAsAAAANAAcAHgAHAAsAAAANAAgAHgAHAAsAAAANAAkAHgAHAAsAAAANAAoAHgAHAAsAAAANAAsAHgAHAAsAAAAOAAAAHgAHAAsAAAAOAAEAHgAHAAsAAAAOAAIAHgAHAAsAAAAOAAMAHgAHAAsAAAAOAAQAHgAHAAsAAAAOAAUAHgAHAAsAAAAOAAYAHgAHAAsAAAAOAAcAHgAHAAsAAAAOAAgAHgAHAAsAAAAOAAkAHgAHAAsAAAAOAAoAHgAHAAsAAAAOAAsAHgAHAAsAAAAPAAAAHgAHAAsAAAAPAAEAHgAHAAsAAAAPAAIAHgAHAAsAAAAPAAMAHgAHAAsAAAAPAAQAHgAHAAsAAAAPAAUAHgAHAAsAAAAPAAYAHgAHAAsAAAAPAAcAHgAHAAsAAAAPAAgAHgAHAAsAAAAPAAkAHgAHAAsAAAAPAAoAHgAHAAsAAAAPAAsAHgAHAAsAAAAQAAAAHgAHAAsAAAAQAAEAHgAHAAsAAAAQAAIAHgAHAAsAAAAQAAMAHgAHAAsAAAAQAAQAHgAHAAsAAAAQAAUAHgAHAAsAAAAQAAYAHgAHAAsAAAAQAAcAHgAHAAsAAAAQAAgAHgAHAAsAAAAQAAkAHgAHAAsAAAAQAAoAHgAHAAsAAAAQAAsAHgAHAAsAAAARAAAAHgAHAAsAAAARAAEAHgAHAAsAAAARAAIAHgAHAAsAAAARAAMAHgAHAAsAAAARAAQAHgAHAAsAAAARAAUAHgAHAAsAAAARAAYAHgAHAAsAAAARAAcAHgAHAAsAAAARAAgAHgAHAAsAAAARAAkAHgAHAAsAAAARAAoAHgAHAAsAAAARAAsAHgAHAAsAAAASAAAAHgAHAAsAAAASAAEAHgAHAAsAAAASAAIAHgAHAAsAAAASAAMAHgAHAAsAAAASAAQAHgAHAAsAAAASAAUAHgAHAAsAAAASAAYAHgAHAAsAAAASAAcAHgAHAAsAAAASAAgAHgAHAAsAAAASAAkAHgAHAAsAAAASAAoAHgAHAAsAAAASAAsAHgAHAAsAAAATAAAAHgAHAAsAAAATAAEAHgAHAAsAAAATAAIAHgAHAAsAAAATAAMAHgAHAAsAAAATAAQAHgAHAAsAAAATAAUAHgAHAAsAAAATAAYAHgAHAAsAAAATAAcAHgAHAAsAAAATAAgAHgAHAAsAAAATAAkAHgAHAAsAAAATAAoAHgAHAAsAAAATAAsAHgAHAAsAAAA=")
 
+[node name="goal_test" parent="Sokoban_TML/Goals" index="0" instance=ExtResource("3_n0sxd")]
+position = Vector2(273, 210)
+box_id = "2"
+
+[node name="Label" type="Label" parent="Sokoban_TML/Goals/goal_test"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="goal_test2" parent="Sokoban_TML/Goals" index="1" instance=ExtResource("3_n0sxd")]
+position = Vector2(85, 174)
+box_id = "3"
+
+[node name="Label" type="Label" parent="Sokoban_TML/Goals/goal_test2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="goal_test3" parent="Sokoban_TML/Goals" index="2" instance=ExtResource("3_n0sxd")]
+position = Vector2(205, 46)
+box_id = "1"
+
 [node name="Box_test" parent="Sokoban_TML/Boxes" index="0" instance=ExtResource("2_n0sxd")]
 position = Vector2(176, 144)
+box_id = "1"
+
+[node name="Label" type="Label" parent="Sokoban_TML/Boxes/Box_test"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Box_test2" parent="Sokoban_TML/Boxes" index="1" instance=ExtResource("2_n0sxd")]
+position = Vector2(80, 239)
+box_id = "3"
+
+[node name="Label" type="Label" parent="Sokoban_TML/Boxes/Box_test2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Box_test3" parent="Sokoban_TML/Boxes" index="2" instance=ExtResource("2_n0sxd")]
+position = Vector2(274, 48)
+box_id = "2"
+
+[node name="CompletionFunctions" parent="Sokoban_TML" index="3"]
+script = SubResource("GDScript_qv72c")
+goals = 3
 
 [node name="Player" parent="." instance=ExtResource("4_n0sxd")]
 position = Vector2(320, 96)
@@ -664,5 +769,12 @@ tile_set = SubResource("TileSet_ueuro")
 limit_enabled = false
 script = ExtResource("5_mvpe2")
 target_path = NodePath("../Player")
+
+[connection signal="left_goal" from="Sokoban_TML/Goals/goal_test" to="Sokoban_TML/CompletionFunctions" method="_on_goal_left"]
+[connection signal="reached_goal" from="Sokoban_TML/Goals/goal_test" to="Sokoban_TML/CompletionFunctions" method="_on_goal_reached"]
+[connection signal="left_goal" from="Sokoban_TML/Goals/goal_test2" to="Sokoban_TML/CompletionFunctions" method="_on_goal_left"]
+[connection signal="reached_goal" from="Sokoban_TML/Goals/goal_test2" to="Sokoban_TML/CompletionFunctions" method="_on_goal_reached"]
+[connection signal="left_goal" from="Sokoban_TML/Goals/goal_test3" to="Sokoban_TML/CompletionFunctions" method="_on_goal_left"]
+[connection signal="reached_goal" from="Sokoban_TML/Goals/goal_test3" to="Sokoban_TML/CompletionFunctions" method="_on_goal_reached"]
 
 [editable path="Sokoban_TML"]

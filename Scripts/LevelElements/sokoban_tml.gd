@@ -1,4 +1,5 @@
 extends Node2D
+class_name sokoban_tml
 
 var grid := {} #[grid_pos]{"wall": boolean, "box": boolean}
 var grid_goals := {} #[grid_pos]{"fullfilled": boolean, "box": Vector2i?}
@@ -10,7 +11,7 @@ var reached_goals := 0
 
 #signal puzzle_solved
 
-func _ready() -> void:
+func _ready() -> void:	
 	for cell in TML.get_used_cells():
 		var tile_data := TML.get_cell_tile_data(cell)
 		if tile_data == null:

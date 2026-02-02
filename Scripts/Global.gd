@@ -1,6 +1,7 @@
 extends Node
 
 enum GameState { MENU, DIALOGUE, PLAYING, CINEMATIC }
+enum LevelEpoch { PAST, FUTURE }
 
 const transitionScene = preload("res://Objects/Transitions/loadingFader.tscn")
 
@@ -9,6 +10,9 @@ var score := 0
 var load_id: String = '0'
 var loadingScene := false
 var fader: Node = null
+
+var can_travel_time := true
+var actual_epoch := LevelEpoch.PAST
 
 func _ready() -> void:
 	Engine.max_fps = 30

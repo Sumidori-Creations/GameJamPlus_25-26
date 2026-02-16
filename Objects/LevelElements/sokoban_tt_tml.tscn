@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvjbxvken7q13"]
+
+[ext_resource type="Script" uid="uid://d2lowc4kawf3m" path="res://Scripts/LevelElements/sokoban_with_time_travel.gd" id="1_tjqwn"]
+[ext_resource type="PackedScene" uid="uid://cpw04uupstsll" path="res://Objects/LevelElements/sokoban_tml.tscn" id="2_lauq5"]
+
+[node name="sokoban_tt_tml" type="Node2D"]
+script = ExtResource("1_tjqwn")
+
+[node name="past_SKB" parent="." instance=ExtResource("2_lauq5")]
+
+[node name="future_SKB" parent="." instance=ExtResource("2_lauq5")]
+
+[editable path="past_SKB"]
+[editable path="future_SKB"]

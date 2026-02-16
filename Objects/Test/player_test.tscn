@@ -1,33 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c4v2dg2lgaepc"]
 
 [ext_resource type="Texture2D" uid="uid://3wfkhaj7dm2x" path="res://Assets/Art/Thomas Van Der Zug/Thomas.png" id="1_cxml1"]
-
-[sub_resource type="GDScript" id="GDScript_jeuoc"]
-script/source = "extends CharacterBody2D
-class_name Player
-
-@export var velocidad_movimiento : float = 350.0
-
-signal pickup_item(item: Area2D)
-
-func _physics_process(delta):
-	if Global.state != Global.GameState.PLAYING:
-		return
-	
-	var direccion_input := Input.get_vector(\"left\", \"right\", \"up\", \"down\")
-	velocity = direccion_input * velocidad_movimiento
-	
-	var collision = move_and_collide(velocity * delta)
-
-	if collision and collision.get_collider() is RigidBody2D:
-		var rb = collision.get_collider()
-		var push_dir = collision.get_normal() * -1.0
-		rb.apply_central_impulse(push_dir * 100)
-
-func _on_recollection_hitbox_area_entered(area: Area2D) -> void:
-	if area.pickable:
-		pickup_item.emit(area)
-"
+[ext_resource type="Script" uid="uid://bspon3ptsnl4d" path="res://Scripts/player.gd" id="1_jeuoc"]
 
 [sub_resource type="Gradient" id="Gradient_cxml1"]
 colors = PackedColorArray(0, 0, 0, 0.24705882, 1, 1, 1, 0.21568628)
@@ -58,7 +32,7 @@ radius = 13.009612
 [node name="PlayerTest" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 31
 motion_mode = 1
-script = SubResource("GDScript_jeuoc")
+script = ExtResource("1_jeuoc")
 velocidad_movimiento = 150.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]

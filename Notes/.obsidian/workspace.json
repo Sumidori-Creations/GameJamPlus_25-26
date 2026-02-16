@@ -27,8 +27,23 @@
               "icon": "lucide-trello",
               "title": "Board"
             }
+          },
+          {
+            "id": "e2ae9232c42242dc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Story/Prólogo.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Prólogo"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -193,9 +208,11 @@
   },
   "active": "0ea4eb7e3c02b46b",
   "lastOpenFiles": [
+    "Kanban/Board.md",
+    "Story/Prólogo.md",
+    "Story",
     "Story",
     "Make Steam page.md",
-    "Kanban/Board.md",
     "Bienvenido.md",
     "Kanban",
     "Sin título.base",

@@ -4,6 +4,7 @@ class_name sokoban_tml
 var grid := {} #[grid_pos]{"wall": boolean, "box": boolean}
 var grid_goals := {} #[grid_pos]{"fullfilled": boolean, "box": Vector2i?}
 var reached_goals := 0
+var tile_size : Vector2i
 
 @onready var TML : TileMapLayer = $TileMapLayer
 @onready var Boxes : Node2D = $Boxes
@@ -11,7 +12,8 @@ var reached_goals := 0
 
 #signal puzzle_solved
 
-func _ready() -> void:	
+func _ready() -> void:
+	tile_size = TML.tile_set.tile_size
 	for cell in TML.get_used_cells():
 		var tile_data := TML.get_cell_tile_data(cell)
 		if tile_data == null:
@@ -65,6 +67,8 @@ func check_space(box: SKB_box, direction: Vector2i):
 
 func calculate_grid_pos(object: SKB_obj):
 	var offset = float(object.sprite_size) / 2
+	if (object.position.x < 0): object.position.x -= object.sprite_size
+	if (object.position.y < 0): object.position.y -= object.sprite_size
 	object.grid_pos = Vector2i(object.position / offset / 2)
 	@warning_ignore("narrowing_conversion")
 	object.position = object.grid_pos * object.sprite_size + Vector2i(offset, offset)

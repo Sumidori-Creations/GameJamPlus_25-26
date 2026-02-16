@@ -74,9 +74,9 @@ func update_box_pos() -> void:
 			if (grid_pos.y < 0): grid_pos.y -= 1
 			
 			#Cambiar la posición objetivo si el lugar a donde se va a mover ya está ocupado
-			
 			future_SKB.grid[grid_pos].box = false
-			future_SKB.grid[grid_state_cache[box.box_id].grid_pos] = true
+			box.grid_pos = grid_state_cache[box.box_id].grid_pos
+			future_SKB.grid[box.grid_pos].box = true
 			box.position = grid_state_cache[box.box_id].pos
 			grid_state_cache[box.box_id].was_moved = false
 

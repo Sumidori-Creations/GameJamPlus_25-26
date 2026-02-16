@@ -25,11 +25,11 @@ tile_map_data = PackedByteArray("AAALAPj/HgACAAIAAAALAPn/HgACAAIAAAALAPr/HgACAAI
 
 [node name="Box_test" parent="sokoban_tt_tml/future_SKB/Boxes" index="0" instance=ExtResource("2_4rch2")]
 position = Vector2(-200, -172)
-box_id = "1"
+box_id = "2"
 
 [node name="Box_test2" parent="sokoban_tt_tml/future_SKB/Boxes" index="1" instance=ExtResource("2_4rch2")]
 position = Vector2(247, -110)
-box_id = "2"
+box_id = "1"
 
 [node name="Player" parent="." instance=ExtResource("2_t01ox")]
 position = Vector2(140, 140)

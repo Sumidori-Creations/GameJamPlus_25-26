@@ -93,7 +93,7 @@ offset_right = 282.0
 offset_bottom = 318.0
 theme_override_fonts/font = ExtResource("3_1ehe0")
 theme_override_font_sizes/font_size = 32
-text = "Créditos"
+text = "Credits"
 
 [node name="playButton" type="Button" parent="."]
 layout_mode = 0
@@ -103,7 +103,7 @@ offset_right = 537.0
 offset_bottom = 316.0
 theme_override_fonts/font = ExtResource("3_1ehe0")
 theme_override_font_sizes/font_size = 32
-text = "Salir"
+text = "Exit"
 
 [node name="exitButton" type="Button" parent="."]
 layout_mode = 0
@@ -113,7 +113,7 @@ offset_right = 405.0
 offset_bottom = 215.0
 theme_override_fonts/font = ExtResource("3_1ehe0")
 theme_override_font_sizes/font_size = 32
-text = "Jugar"
+text = "Play"
 
 [node name="Credits" parent="." instance=ExtResource("5_n45e2")]
 visible = false

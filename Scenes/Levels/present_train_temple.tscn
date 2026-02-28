@@ -1,13 +1,14 @@
-[gd_scene load_steps=15 format=4 uid="uid://cepxlenix5vrd"]
+[gd_scene load_steps=16 format=4 uid="uid://cepxlenix5vrd"]
 
 [ext_resource type="Texture2D" uid="uid://crkyddo8axims" path="res://Assets/Test/tiles.png" id="1_l66an"]
 [ext_resource type="Texture2D" uid="uid://cnj01cmrkfn7b" path="res://Assets/Top_Down_Adventure_Pack_v.1.0/Overworld_Tileset.png" id="2_t2pme"]
 [ext_resource type="Texture2D" uid="uid://c5w16o04s5hk7" path="res://Assets/Top_Down_Adventure_Pack_v.1.0/Dungeon_Tileset.png" id="3_bfvyv"]
 [ext_resource type="Texture2D" uid="uid://dtx1mybtyifub" path="res://Assets/Art/Train/Tren.png" id="4_t2pme"]
 [ext_resource type="PackedScene" uid="uid://c4v2dg2lgaepc" path="res://Objects/Test/player_test.tscn" id="5_bfvyv"]
-[ext_resource type="PackedScene" uid="uid://b8fusymb152j4" path="res://Objects/UI/inventory_ui.tscn" id="6_6028s"]
 [ext_resource type="PackedScene" uid="uid://chqxe05nr7jd4" path="res://Objects/Transitions/cinematicBars.tscn" id="6_r8kmm"]
 [ext_resource type="Script" uid="uid://vebx1drpgsoq" path="res://Scripts/camera_2d.gd" id="7_b3osi"]
+[ext_resource type="PackedScene" uid="uid://l68f363cyjj7" path="res://Objects/UI/time_zone_toast.tscn" id="7_r8kmm"]
+[ext_resource type="PackedScene" uid="uid://bv6y3t7507ov8" path="res://Objects/UI/pause_menu.tscn" id="8_ueuro"]
 
 [sub_resource type="GDScript" id="GDScript_b3osi"]
 script/source = "extends Node2D
@@ -17,11 +18,13 @@ script/source = "extends Node2D
 @onready var player : CharacterBody2D = $Player
 @onready var inventory = $UI/Inventory
 @onready var cinematic_bars = $CinematicBars
+@onready var toast : timeZoneToast = $timeZoneToast
 
 func _ready() -> void:
 	player.pickup_item.connect(add_item)
 	cinematic_bars.end()
 	player.position = player_position
+	toast.show_toast()
 
 func add_item(area: Area2D) -> void:
 	inventory.add_item(area)
@@ -683,14 +686,6 @@ tile_set = SubResource("TileSet_ueuro")
 offset = Vector2(320, 180)
 transform = Transform2D(1, 0, 0, 1, 320, 180)
 
-[node name="Inventory" parent="UI" node_paths=PackedStringArray("player_node", "items_node") instance=ExtResource("6_6028s")]
-offset_left = -320.0
-offset_top = -180.0
-offset_right = -320.0
-offset_bottom = -180.0
-player_node = NodePath("")
-items_node = NodePath("")
-
 [node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = 1001
 anchors_preset = 8
@@ -703,6 +698,12 @@ offset_top = -360.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.16078432)
+
+[node name="timeZoneToast" parent="." instance=ExtResource("7_r8kmm")]
+text = "??? - AR 2347 "
+
+[node name="pause_menu" parent="." instance=ExtResource("8_ueuro")]
+actualScene = "res://Scenes/Levels/present_train_temple.tscn"
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 limit_enabled = false

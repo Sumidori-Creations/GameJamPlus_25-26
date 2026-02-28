@@ -25,35 +25,41 @@ texture = ExtResource("1_7v6jt")
 script = ExtResource("2_m8gcj")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_m8gcj")
 
 [node name="trigger_up" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_up"]
 position = Vector2(0, -15.5)
 shape = SubResource("RectangleShape2D_vjx5s")
 
 [node name="trigger_down" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_down"]
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_e00dj")
 
 [node name="trigger_left" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_left"]
 position = Vector2(-15.5, 0)
 shape = SubResource("RectangleShape2D_27gup")
 
 [node name="trigger_right" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="trigger_right"]
 position = Vector2(15.5, 0)
 shape = SubResource("RectangleShape2D_t607b")
 
 [node name="goal_trigger" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="goal_trigger"]
 shape = SubResource("RectangleShape2D_qmh1v")

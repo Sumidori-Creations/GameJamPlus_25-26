@@ -37,8 +37,8 @@ offset_right = 520.0
 offset_bottom = 280.0
 region_rect = Rect2(428, 176, 52, 57)
 script = ExtResource("1_gpvol")
-message = Array[String](["Anio XXXX
-Ciudad de XXXXXXXXX", "Una era distópica donde reina el caos.", "Cada persona hace lo posible para sobrevivir por su cuenta", "No se puede confiar en nadie...", "La verdad es definida por quienes tienen el poder para oprimir a las masas.", "Nadie hace nada al respecto, el miedo posee a la población.", "Ser historiador en esta época supone un gran riesgo", "\"No se meta donde nadie lo llamó\"", "Pero un verdadero historiador contará la historia tal cual ocurrió...", "Solo si lograra sobrevivir a la adversidad."])
+message = Array[String](["AR 2347 - 
+City of XXXXXXXXX", "A dystopian era where chaos reigns.", "The Cold War seems to be endless.", "Each person does their best to survive on their own.", "You can't trust anyone...", "Truth is defined by those who have power over the world.", "Nobody does anything about it; fear grips the population.", "Being a historian in this era involves great risk.", "\"Don't interfere where you're not wanted.\"", "But a true historian will tell the story as it happened...", "Only if he manages to survive adversity."])
 showing_conversation = false
 
 [node name="Text" type="Label" parent="ChatBubble"]

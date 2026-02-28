@@ -75,6 +75,7 @@ _data = {
 }
 
 [node name="Control" type="CanvasLayer"]
+layer = 9999
 script = SubResource("GDScript_3fbke")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

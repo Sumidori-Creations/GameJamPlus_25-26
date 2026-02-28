@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv6y3t7507ov8"]
+
+[ext_resource type="FontFile" uid="uid://ced6iug8fx23p" path="res://Assets/UI/Fonts/Abbasy Calligraphy Typeface.ttf" id="1_cg7vp"]
+
+[sub_resource type="GDScript" id="GDScript_cg7vp"]
+script/source = "extends CanvasLayer
+
+@onready var unpauseButton = $unpauseButton
+@onready var restartButton = $restartButton
+@onready var exitButton = $exitButton
+
+@export var actualScene : String
+
+func _ready() -> void:
+	unpauseButton.grab_focus()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"open_inventory\") and Global.state != Global.GameState.CINEMATIC:
+		get_tree().paused = true
+		self.process_mode = Node.PROCESS_MODE_ALWAYS
+		Global.state = Global.GameState.MENU
+		self.visible = true
+		unpauseButton.grab_focus()
+
+func _on_unpause_button_pressed() -> void:
+	get_tree().paused = false
+	Global.state = Global.GameState.PLAYING
+	self.visible = false
+
+func _on_restart_button_pressed() -> void:
+	restartButton.release_focus()
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(\"Master\"), true)
+	Global.transitionTo(actualScene, self)
+	get_tree().paused = false
+
+func _on_exit_button_pressed() -> void:
+	exitButton.release_focus()
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(\"Master\"), true)
+	Global.transitionTo(\"res://Scenes/main_menu.tscn\", self)
+	get_tree().paused = false
+"
+
+[node name="pause_menu" type="CanvasLayer"]
+layer = 9998
+visible = false
+script = SubResource("GDScript_cg7vp")
+actualScene = "res://scene.tscn"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4862745)
+
+[node name="unpauseButton" type="Button" parent="."]
+offset_left = 219.0
+offset_top = 68.0
+offset_right = 407.0
+offset_bottom = 138.0
+focus_neighbor_left = NodePath("../exitButton")
+focus_neighbor_top = NodePath("../exitButton")
+focus_neighbor_right = NodePath("../restartButton")
+focus_neighbor_bottom = NodePath("../restartButton")
+focus_next = NodePath("../restartButton")
+focus_previous = NodePath("../exitButton")
+theme_override_fonts/font = ExtResource("1_cg7vp")
+theme_override_font_sizes/font_size = 32
+text = "Continue"
+
+[node name="restartButton" type="Button" parent="."]
+offset_left = 220.0
+offset_top = 147.0
+offset_right = 408.0
+offset_bottom = 217.0
+focus_neighbor_left = NodePath("../unpauseButton")
+focus_neighbor_top = NodePath("../unpauseButton")
+focus_neighbor_right = NodePath("../exitButton")
+focus_neighbor_bottom = NodePath("../exitButton")
+focus_next = NodePath("../exitButton")
+focus_previous = NodePath("../unpauseButton")
+theme_override_fonts/font = ExtResource("1_cg7vp")
+theme_override_font_sizes/font_size = 32
+text = "Restart level"
+
+[node name="exitButton" type="Button" parent="."]
+offset_left = 222.0
+offset_top = 233.0
+offset_right = 410.0
+offset_bottom = 303.0
+focus_neighbor_left = NodePath("../restartButton")
+focus_neighbor_top = NodePath("../restartButton")
+focus_neighbor_right = NodePath("../unpauseButton")
+focus_neighbor_bottom = NodePath("../unpauseButton")
+focus_next = NodePath("../unpauseButton")
+focus_previous = NodePath("../restartButton")
+theme_override_fonts/font = ExtResource("1_cg7vp")
+theme_override_font_sizes/font_size = 32
+text = "Main Menu"
+
+[connection signal="pressed" from="unpauseButton" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="restartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="exitButton" to="." method="_on_exit_button_pressed"]

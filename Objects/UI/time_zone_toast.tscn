@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://l68f363cyjj7"]
+
+[ext_resource type="Script" uid="uid://isv2fosv8qqh" path="res://Scripts/UI/time_zone_toast.gd" id="1_lw7a5"]
+[ext_resource type="Texture2D" uid="uid://bnhleru1tymt4" path="res://Assets/UI/timeZoneToast.png" id="2_cyxkx"]
+[ext_resource type="FontFile" uid="uid://c4304guxupqij" path="res://Assets/UI/Fonts/Baskic8.otf" id="3_cyxkx"]
+
+[sub_resource type="Animation" id="Animation_ld2ln"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-700, 306)]
+}
+
+[sub_resource type="Animation" id="Animation_cyxkx"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(16, 306), Vector2(-700, 306)]
+}
+
+[sub_resource type="Animation" id="Animation_1sfen"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-700, 306), Vector2(16, 306)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0juog"]
+_data = {
+&"RESET": SubResource("Animation_ld2ln"),
+&"hide": SubResource("Animation_cyxkx"),
+&"show": SubResource("Animation_1sfen")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_1sfen"]
+font = ExtResource("3_cyxkx")
+
+[node name="timeZoneToast" type="CanvasLayer"]
+layer = 101
+script = ExtResource("1_lw7a5")
+text = "Thomas Train - AR 3100"
+timeout = 5.015
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0juog")
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -700.0
+offset_top = -54.0
+offset_right = -688.0
+offset_bottom = -41.0
+grow_vertical = 0
+texture = ExtResource("2_cyxkx")
+patch_margin_left = 6
+patch_margin_top = 7
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_1sfen")
+autowrap_mode = 3
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="hide_toast"]

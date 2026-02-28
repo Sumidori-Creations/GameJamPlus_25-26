@@ -37,8 +37,8 @@ offset_right = 520.0
 offset_bottom = 280.0
 region_rect = Rect2(428, 176, 52, 57)
 script = ExtResource("1_84mc6")
-message = Array[String](["Y así comienza la historia de nuestro protagonista", "Thomas Von Der Zug
-El cronista errante", "Viajará al pasado para arreglar su presente", "Y borrará de la historia la raíz de todos los males", "Gracias por jugar nuestra Demo para el Kuri 25", "El viaje de Thomas continuara...."])
+message = Array[String](["And that's how the story of our protagonist starts", "Thomas Von Der Zug
+The wandering chronicler", "He will travel to the past to fix his present", "And it will erase from history the root of all evil", "Thanks for playing our demo", "Follow Sumidori Creations on Instagram to stay tuned", "Thomas's journey will continue...."])
 showing_conversation = false
 
 [node name="Text" type="Label" parent="ChatBubble"]

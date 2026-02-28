@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dewg2wu5cixd"]
+[gd_scene load_steps=16 format=4 uid="uid://dewg2wu5cixd"]
 
 [ext_resource type="Texture2D" uid="uid://crkyddo8axims" path="res://Assets/Test/tiles.png" id="1_delv0"]
 [ext_resource type="Texture2D" uid="uid://cnj01cmrkfn7b" path="res://Assets/Top_Down_Adventure_Pack_v.1.0/Overworld_Tileset.png" id="2_3yvjs"]
@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dtx1mybtyifub" path="res://Assets/Art/Train/Tren.png" id="4_dcel8"]
 [ext_resource type="PackedScene" uid="uid://c4v2dg2lgaepc" path="res://Objects/Test/player_test.tscn" id="5_0rvab"]
 [ext_resource type="PackedScene" uid="uid://chqxe05nr7jd4" path="res://Objects/Transitions/cinematicBars.tscn" id="6_wfxgi"]
-[ext_resource type="PackedScene" uid="uid://b8fusymb152j4" path="res://Objects/UI/inventory_ui.tscn" id="7_pok3y"]
+[ext_resource type="PackedScene" uid="uid://l68f363cyjj7" path="res://Objects/UI/time_zone_toast.tscn" id="7_delv0"]
+[ext_resource type="PackedScene" uid="uid://bv6y3t7507ov8" path="res://Objects/UI/pause_menu.tscn" id="8_3yvjs"]
 [ext_resource type="Script" uid="uid://vebx1drpgsoq" path="res://Scripts/camera_2d.gd" id="8_45vx0"]
 
 [sub_resource type="GDScript" id="GDScript_b3osi"]
@@ -15,17 +16,13 @@ script/source = "extends Node2D
 @export var player_position : Vector2
 
 @onready var player : CharacterBody2D = $Player
-@onready var inventory = $UI/Inventory
 @onready var cinematic_bars = $CinematicBars
+@onready var toast : timeZoneToast = $timeZoneToast
 
 func _ready() -> void:
-	player.pickup_item.connect(add_item)
 	cinematic_bars.end()
 	player.position = player_position
-
-func add_item(area: Area2D) -> void:
-	inventory.add_item(area)
-	pass
+	toast.show_toast()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name != \"Player\": return
@@ -684,12 +681,6 @@ tile_set = SubResource("TileSet_ueuro")
 offset = Vector2(320, 180)
 transform = Transform2D(1, 0, 0, 1, 320, 180)
 
-[node name="Inventory" parent="UI" instance=ExtResource("7_pok3y")]
-offset_left = -320.0
-offset_top = -180.0
-offset_right = -320.0
-offset_bottom = -180.0
-
 [node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = 1001
 anchors_preset = 8
@@ -702,6 +693,13 @@ offset_top = -360.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.4392157, 0.25882354, 0.078431375, 0.19215687)
+
+[node name="timeZoneToast" parent="." instance=ExtResource("7_delv0")]
+text = "??? - AR 1863"
+timeout = 5.0
+
+[node name="pause_menu" parent="." instance=ExtResource("8_3yvjs")]
+actualScene = "res://Scenes/Levels/past_train_temple.tscn"
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 limit_enabled = false

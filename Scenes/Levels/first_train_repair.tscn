@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://p6tvin8xa6pp"]
+[gd_scene load_steps=51 format=4 uid="uid://p6tvin8xa6pp"]
 
 [ext_resource type="Texture2D" uid="uid://38tegvsw027p" path="res://Assets/Art/Puzzle/malla.png" id="1_yjkdt"]
 [ext_resource type="PackedScene" uid="uid://dm0ldwnm4gj7t" path="res://Objects/pared.tscn" id="2_s5ajv"]
@@ -15,14 +15,18 @@
 [ext_resource type="Texture2D" uid="uid://bmmrcggaan6wv" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_3.png" id="12_ulky7"]
 [ext_resource type="Script" uid="uid://3f35ks736o3m" path="res://Scenes/camera_2d.gd" id="13_0aet3"]
 [ext_resource type="AudioStream" uid="uid://8slkvgdajidq" path="res://Assets/sfx/step-1.wav" id="14_kbv5d"]
+[ext_resource type="PackedScene" uid="uid://l68f363cyjj7" path="res://Objects/UI/time_zone_toast.tscn" id="16_kd2y4"]
+[ext_resource type="PackedScene" uid="uid://bv6y3t7507ov8" path="res://Objects/UI/pause_menu.tscn" id="17_vejoq"]
 
 [sub_resource type="GDScript" id="GDScript_sv3pp"]
 script/source = "extends Node2D
 
 @onready var tileMap = $Paredes
+@onready var toast : timeZoneToast = $timeZoneToast
 
+func _ready() -> void:
+	toast.show_toast()
 
-			
 func _process(_delta: float) -> void:
 	if Global.score >= 4:
 		Global.score = 0
@@ -1348,12 +1352,18 @@ stream = SubResource("AudioStreamMP3_sv3pp")
 autoplay = true
 bus = &"Music"
 
+[node name="timeZoneToast" parent="." instance=ExtResource("16_kd2y4")]
+text = "Inside the Train  "
+
+[node name="pause_menu" parent="." instance=ExtResource("17_vejoq")]
+actualScene = "res://Scenes/Levels/first_train_repair.tscn"
+
 [connection signal="body_entered" from="Paredes/gear" to="Paredes/gear" method="_on_body_entered"]
 [connection signal="body_exited" from="Paredes/gear" to="Paredes/gear" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@150511" to="Paredes/@Area2D@150511" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@150511" to="Paredes/@Area2D@150511" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@150688" to="Paredes/@Area2D@150688" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@150688" to="Paredes/@Area2D@150688" method="_on_body_exited"]
-[connection signal="body_entered" from="Paredes/@Area2D@150689" to="Paredes/@Area2D@150689" method="_on_body_entered"]
-[connection signal="body_exited" from="Paredes/@Area2D@150689" to="Paredes/@Area2D@150689" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@131552" to="Paredes/@Area2D@131552" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@131552" to="Paredes/@Area2D@131552" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@131729" to="Paredes/@Area2D@131729" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@131729" to="Paredes/@Area2D@131729" method="_on_body_exited"]
+[connection signal="body_entered" from="Paredes/@Area2D@131730" to="Paredes/@Area2D@131730" method="_on_body_entered"]
+[connection signal="body_exited" from="Paredes/@Area2D@131730" to="Paredes/@Area2D@131730" method="_on_body_exited"]
 [connection signal="finished" from="Player/CharacterBody2D/AudioStreamPlayer" to="Player/CharacterBody2D" method="_on_audio_stream_player_finished"]

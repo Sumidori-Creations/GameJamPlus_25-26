@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://qlr1rpn7l808"]
+
+[ext_resource type="PackedScene" uid="uid://c4v2dg2lgaepc" path="res://Objects/Test/player_test.tscn" id="1_0nshj"]
+[ext_resource type="PackedScene" uid="uid://cvjbxvken7q13" path="res://Objects/LevelElements/sokoban_tt_tml.tscn" id="1_qnft7"]
+[ext_resource type="PackedScene" uid="uid://chqxe05nr7jd4" path="res://Objects/Transitions/cinematicBars.tscn" id="2_qnft7"]
+[ext_resource type="PackedScene" uid="uid://l68f363cyjj7" path="res://Objects/UI/time_zone_toast.tscn" id="3_x7ehf"]
+[ext_resource type="PackedScene" uid="uid://bv6y3t7507ov8" path="res://Objects/UI/pause_menu.tscn" id="4_h07u5"]
+[ext_resource type="Script" uid="uid://vebx1drpgsoq" path="res://Scripts/camera_2d.gd" id="5_mfmi5"]
+
+[node name="beyond_time" type="Node2D"]
+
+[node name="sokoban_tt_tml" parent="." instance=ExtResource("1_qnft7")]
+
+[node name="Player" parent="." instance=ExtResource("1_0nshj")]
+position = Vector2(320, 96)
+
+[node name="CinematicBars" parent="." instance=ExtResource("2_qnft7")]
+
+[node name="pastToast" parent="." instance=ExtResource("3_x7ehf")]
+text = "Demo level - Past"
+timeout = 5.0
+
+[node name="futureToast" parent="." instance=ExtResource("3_x7ehf")]
+text = "Demo level - Future"
+timeout = 5.0
+
+[node name="pause_menu" parent="." instance=ExtResource("4_h07u5")]
+actualScene = "res://Scenes/Levels/beyond_time.tscn"
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+limit_enabled = false
+script = ExtResource("5_mfmi5")
+target_path = NodePath("../Player")
+
+[editable path="sokoban_tt_tml"]
+[editable path="sokoban_tt_tml/past_SKB"]
+[editable path="sokoban_tt_tml/future_SKB"]

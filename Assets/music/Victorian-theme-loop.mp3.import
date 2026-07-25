@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://canfq8y8mv37b"
-path="res://.godot/imported/Victorian-theme-loop.mp3-8032d56cfc6ab444d23aa7f211d4ab12.mp3str"
+path="res://.godot/imported/Victorian-theme-loop.mp3-a4879eb453d45806bc893b045b097782.mp3str"
 
 [deps]
 
-source_file="res://Assets/music/Victorian-theme-loop.mp3"
-dest_files=["res://.godot/imported/Victorian-theme-loop.mp3-8032d56cfc6ab444d23aa7f211d4ab12.mp3str"]
+source_file="res://Assets/Music/Victorian-theme-loop.mp3"
+dest_files=["res://.godot/imported/Victorian-theme-loop.mp3-a4879eb453d45806bc893b045b097782.mp3str"]
 
 [params]
 

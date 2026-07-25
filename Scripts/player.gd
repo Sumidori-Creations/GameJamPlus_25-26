@@ -20,7 +20,9 @@ func _physics_process(delta):
 		rb.apply_central_impulse(push_dir * 100)
 
 func _on_recollection_hitbox_area_entered(area: Area2D) -> void:
-	if area.pickable:
+	if area == null or area.get("pickable") == null:
+		return
+	if bool(area.get("pickable")):
 		pickup_item.emit(area)
 
 func get_collision_shape_corner_pos() -> Array:

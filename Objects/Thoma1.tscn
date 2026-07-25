@@ -11,7 +11,7 @@ height = 126.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 5
 script = ExtResource("1_m31ts")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]

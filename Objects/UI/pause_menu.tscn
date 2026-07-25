@@ -9,42 +9,41 @@ script/source = "extends CanvasLayer
 @onready var restartButton = $restartButton
 @onready var exitButton = $exitButton
 
-@export var actualScene : String
+@export_file(\"*.tscn\") var actualScene: String
 
 func _ready() -> void:
 	unpauseButton.grab_focus()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed(\"open_inventory\") and Global.state != Global.GameState.CINEMATIC:
+	if event.is_action_pressed(\"ui_cancel\") and Global.state == Global.GameState.PLAYING and not visible:
 		get_tree().paused = true
-		self.process_mode = Node.PROCESS_MODE_ALWAYS
+		process_mode = Node.PROCESS_MODE_ALWAYS
 		Global.state = Global.GameState.MENU
-		self.visible = true
+		visible = true
 		unpauseButton.grab_focus()
+		get_viewport().set_input_as_handled()
 
 func _on_unpause_button_pressed() -> void:
 	get_tree().paused = false
 	Global.state = Global.GameState.PLAYING
-	self.visible = false
+	visible = false
 
 func _on_restart_button_pressed() -> void:
 	restartButton.release_focus()
-	AudioServer.set_bus_mute(AudioServer.get_bus_index(\"Master\"), true)
-	Global.transitionTo(actualScene, self)
 	get_tree().paused = false
+	Global.transitionTo(actualScene, self)
 
 func _on_exit_button_pressed() -> void:
 	exitButton.release_focus()
-	AudioServer.set_bus_mute(AudioServer.get_bus_index(\"Master\"), true)
-	Global.transitionTo(\"res://Scenes/main_menu.tscn\", self)
 	get_tree().paused = false
+	Global.transitionTo(\"res://Scenes/main_menu.tscn\", self)
 "
 
 [node name="pause_menu" type="CanvasLayer"]
 layer = 9998
 visible = false
 script = SubResource("GDScript_cg7vp")
-actualScene = "res://scene.tscn"
+actualScene = "res://Scenes/main_menu.tscn"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

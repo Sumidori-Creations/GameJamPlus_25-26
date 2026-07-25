@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dd4bp2l1ayu6i" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_2.png" id="11_a76mm"]
 [ext_resource type="Texture2D" uid="uid://bmmrcggaan6wv" path="res://Assets/Art/Thomas Van Der Zug/thomas_run_3.png" id="12_ulky7"]
 [ext_resource type="Script" uid="uid://3f35ks736o3m" path="res://Scenes/camera_2d.gd" id="13_0aet3"]
-[ext_resource type="AudioStream" uid="uid://8slkvgdajidq" path="res://Assets/sfx/step-1.wav" id="14_kbv5d"]
+[ext_resource type="AudioStream" uid="uid://8slkvgdajidq" path="res://Assets/SFX/step-1.wav" id="14_kbv5d"]
 [ext_resource type="PackedScene" uid="uid://l68f363cyjj7" path="res://Objects/UI/time_zone_toast.tscn" id="16_kd2y4"]
 [ext_resource type="PackedScene" uid="uid://bv6y3t7507ov8" path="res://Objects/UI/pause_menu.tscn" id="17_vejoq"]
 
@@ -1304,7 +1304,7 @@ use_kinematic_bodies = true
 position = Vector2(1743.5037, 998.2755)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Player" groups=["player"]]
-collision_layer = 3
+collision_layer = 2
 collision_mask = 5
 script = ExtResource("6_fs3ko")
 velocidad_movimiento = 200.0

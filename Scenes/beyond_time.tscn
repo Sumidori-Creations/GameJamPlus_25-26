@@ -25,7 +25,7 @@ text = "Demo level - Future"
 timeout = 5.0
 
 [node name="pause_menu" parent="." instance=ExtResource("4_h07u5")]
-actualScene = "res://Scenes/Levels/beyond_time.tscn"
+actualScene = "res://Scenes/beyond_time.tscn"
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 limit_enabled = false

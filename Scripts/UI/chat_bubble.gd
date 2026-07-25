@@ -1,125 +1,87 @@
-extends Control  # Supongamos que este script está en un nodo Control que es tu caja de diálogo
+extends Control
 
 enum OriginPoint { BOTTOMRIGHT, BOTTOMLEFT, TOPRIGHT, TOPLEFT }
 
 signal on_conversation_end
 
-@export var typing_speed := 0.05  # segundos por letra
-#@export var max_length := 400
-#@export var max_height := 80
-@export_multiline var message : Array[String] = []
+@export_range(0.0, 1.0, 0.005) var typing_speed := 0.05
+@export var message: Array[String] = []
 @export var showing_conversation := true
 
-#var min_length : float
-#var min_height : float
 var full_text := ""
-var display_text := ""
 var char_index := 0
 var typing := false
-var font : Font
 var conversation_index := 0
+var _typing_accumulator := 0.0
 
-@onready var label : Label = $Text
-#@onready var original_x = position.x
-#@onready var original_y = position.y
+@onready var label: Label = $Text
 
 func _ready() -> void:
-	font = label.get_theme_font("font")
-	#min_length = font.get_string_size("Hola").x + self.patch_margin_left + self.patch_margin_right 
-	#min_height = font.get_height() + self.patch_margin_bottom + self.patch_margin_top 
-	#min_length = max_length
-	#min_height = max_height
-	#if self.size.x < min_length:
-		#self.position.x -= min_length - self.size.x
-		#self.size.x = min_length
-		#original_x = self.position.x
-	#if self.size.y < min_height:
-		#self.position.y -= min_height - self.size.y
-		#self.size.y = min_height
-		#original_y = self.position.y
 	label.size.x = self.size.x - self.patch_margin_right
 	label.size.y = self.size.y - self.patch_margin_bottom
-	if showing_conversation:
-		show_text(message[conversation_index])
-		conversation_index += 1
+	if showing_conversation and not message.is_empty():
+		show_text(message[0])
+		conversation_index = 1
+	else:
+		showing_conversation = false
 
 func show_text(text: String) -> void:
 	full_text = text
-	display_text = ""
 	char_index = 0
-	typing = true
-	label.text = ""  # limpiar al principio
+	typing = not full_text.is_empty()
+	_typing_accumulator = 0.0
+	label.text = ""
+	if typing_speed <= 0.0:
+		_finish_typing()
 
-func _process(_delta: float) -> void:
-	if typing:
-		# cada ciclo agregamos letra si hay más
-		if char_index < full_text.length():
-			char_index += 1
-			# dividimos el texto hasta el índice actual
-			display_text = full_text.substr(0, char_index)
-			label.text = display_text
-			#handle_autoWrap()
-		else:
-			# ya terminamos de escribir todo
-			typing = false
-
-#func handle_autoWrap():
-	#var text_length = font.get_string_size(label.text).x
-	#var text_height = font.get_multiline_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, label.size.x).y + font.get_height()
-	#if text_length >= max_length and label.size.x < max_length:
-		#var difference = abs(max_length - label.size.x)
-		#self.size.x += difference
-		#label.size.x += difference
-		#self.position.x -= difference
-		#while text_length > max_length and label.size.y < max_height:
-			#self.size.y += font.get_height()
-			#label.size.y += font.get_height()
-			#self.position.y -= font.get_height()
-			#text_length -= max_length			
-	#elif label.size.x < text_length:
-		#var difference = abs(text_length - label.size.x)
-		#if difference + self.size.x <= max_length:
-			#self.size.x += difference
-			#label.size.x += difference
-			#self.position.x -= difference
-	#if label.size.y < text_height:
-		#var difference = abs(text_height - label.size.y)
-		#if difference + self.size.y <= max_height:
-			#self.size.y += difference
-			#label.size.y += difference
-			#self.position.y -= difference
-
-func _input(event):
-	if Global.state != Global.GameState.DIALOGUE or !showing_conversation:
+func _process(delta: float) -> void:
+	if not typing:
 		return
-	# si el jugador presiona una tecla (ejemplo: espacio), y aún está escribiendo, saltar al final
-	if event.is_action_pressed("ui_accept"):
-		if typing:
-			label.text = full_text
+	_typing_accumulator += delta
+	while typing and _typing_accumulator >= typing_speed:
+		_typing_accumulator -= typing_speed
+		char_index += 1
+		label.text = full_text.substr(0, char_index)
+		if char_index >= full_text.length():
 			typing = false
-			#handle_autoWrap()
-		else:
-			if message.size() == conversation_index:
-				Global.state = Global.GameState.PLAYING
-				visible = false
-				conversation_index = 0
-				showing_conversation = false;
-				show_text("")
-				#self.size.x = min_length
-				#self.size.y = min_height
-				label.size.x = self.size.x - self.patch_margin_right
-				label.size.y = self.size.y - self.patch_margin_bottom
-				#self.position.x = original_x
-				#self.position.y = original_y
-				on_conversation_end.emit()
-				return
-			show_text(message[conversation_index])
-			conversation_index += 1
 
-func start_talking():
-	Global.state = Global.GameState.DIALOGUE
-	visible = true
-	showing_conversation = true;
-	conversation_index = 0
+func _finish_typing() -> void:
+	label.text = full_text
+	char_index = full_text.length()
+	typing = false
+	_typing_accumulator = 0.0
+
+func _input(event: InputEvent) -> void:
+	if Global.state != Global.GameState.DIALOGUE or not showing_conversation:
+		return
+	if not event.is_action_pressed("ui_accept"):
+		return
+
+	get_viewport().set_input_as_handled()
+	if typing:
+		_finish_typing()
+		return
+
+	if conversation_index >= message.size():
+		Global.state = Global.GameState.PLAYING
+		visible = false
+		conversation_index = 0
+		showing_conversation = false
+		show_text("")
+		label.size.x = self.size.x - self.patch_margin_right
+		label.size.y = self.size.y - self.patch_margin_bottom
+		on_conversation_end.emit()
+		return
+
 	show_text(message[conversation_index])
 	conversation_index += 1
+
+func start_talking() -> void:
+	if message.is_empty():
+		push_warning("La burbuja no tiene mensajes configurados.")
+		return
+	Global.state = Global.GameState.DIALOGUE
+	visible = true
+	showing_conversation = true
+	conversation_index = 1
+	show_text(message[0])

@@ -1,126 +1,129 @@
 extends CharacterBody2D
 
-# --- Movimiento base ---
 @export var velocidad_movimiento: float = 350.0
-
-# --- Empuje ---
 @export var velocidad_empuje: float = 150.0
 @export var radio_empuje: float = 50.0
-
-# --- “Juice” de movimiento (inmersión) ---
 @export var aceleracion: float = 2600.0
 @export var frenado: float = 3200.0
-@export var turn_smooth: float = 18.0 # 4-dir pero con giro menos “instantáneo”
-
-# --- Pasos (audio) por distancia ---
+@export var turn_smooth: float = 18.0
 @export var step_distance: float = 42.0
-
-# --- (si usas Sprite2D para bob/tilt, opcional) ---
 @export var bob_enabled: bool = false
 @export var bob_amount: float = 1.6
 @export var bob_speed: float = 10.0
 @export var tilt_amount_deg: float = 6.0
-
 @export var margen_borde: Vector2 = Vector2(8, 8)
 
-@onready var anim: AnimationTree = get_node("AnimationTree")
-@onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
-@onready var sprite2d: Sprite2D = $Sprite2D if has_node("Sprite2D") else null
-@onready var animated: AnimatedSprite2D = $AnimatedSprite2D if has_node("AnimatedSprite2D") else null
+@onready var anim: AnimationTree = get_node_or_null("AnimationTree") as AnimationTree
+@onready var sfx: AudioStreamPlayer = get_node_or_null("AudioStreamPlayer") as AudioStreamPlayer
+@onready var sprite2d: Sprite2D = get_node_or_null("Sprite2D") as Sprite2D
+@onready var animated: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
 
 var ultima_direccion: Vector2 = Vector2.DOWN
-var idle_direction: String = "front"
+var idle_direction := "front"
 
-var step_sounds := [
-	"res://Assets/sfx/step-1.wav",
-	"res://Assets/sfx/step-2.wav",
-	"res://Assets/sfx/step-3.wav",
-	"res://Assets/sfx/step-4.wav",
-	"res://Assets/sfx/step-5.wav"
+var step_sounds: Array[AudioStream] = [
+	preload("res://Assets/SFX/step-1.wav"),
+	preload("res://Assets/SFX/step-2.wav"),
+	preload("res://Assets/SFX/step-3.wav"),
+	preload("res://Assets/SFX/step-4.wav"),
+	preload("res://Assets/SFX/step-5.wav")
 ]
 
-var _dir_suave: Vector2 = Vector2.ZERO
-var _step_accum: float = 0.0
-var _last_pos: Vector2 = Vector2.ZERO
-var _bob_t: float = 0.0
+var _dir_suave := Vector2.ZERO
+var _step_accum := 0.0
+var _last_pos := Vector2.ZERO
+var _bob_t := 0.0
 
 func _ready() -> void:
 	_last_pos = global_position
 
 func _physics_process(delta: float) -> void:
 	if Global.state != Global.GameState.PLAYING:
+		velocity = Vector2.ZERO
+		_step_accum = 0.0
+		_last_pos = global_position
 		return
-		
+
 	var direccion_input := Input.get_vector("left", "right", "up", "down")
-	velocity = direccion_input * velocidad_movimiento
-
-	# --- Animaciones ---
 	if direccion_input != Vector2.ZERO:
-		ultima_direccion = direccion_input
-		anim.get("parameters/playback").travel("running")
-	else:
-		match idle_direction:
-			"front":
-				anim.get("parameters/playback").travel("Idle - front")
-			"back":
-				anim.get("parameters/playback").travel("Idle - back")
-			"side":
-				anim.get("parameters/playback").travel("Idle - side")
-
-	# --- Dirección suave (manteniendo 4-dir, sin diagonal) ---
-	# (Por si algo llega a meter diagonal en el futuro)
-	if direccion_input != Vector2.ZERO:
-		if abs(direccion_input.x) > 0.0:
+		if abs(direccion_input.x) > abs(direccion_input.y):
 			direccion_input = Vector2(sign(direccion_input.x), 0.0)
 		else:
 			direccion_input = Vector2(0.0, sign(direccion_input.y))
 
+		ultima_direccion = direccion_input
+		if direccion_input.y < 0.0:
+			idle_direction = "back"
+		elif direccion_input.y > 0.0:
+			idle_direction = "front"
+		else:
+			idle_direction = "side"
+
 	_dir_suave = _dir_suave.lerp(direccion_input, 1.0 - exp(-turn_smooth * delta))
-
-	# --- Velocidad con aceleración / frenado ---
-	var target_vel: Vector2 = _dir_suave * velocidad_movimiento
-
+	var target_vel := _dir_suave * velocidad_movimiento
 	if direccion_input != Vector2.ZERO:
 		velocity = velocity.move_toward(target_vel, aceleracion * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, frenado * delta)
 
-	# Flip (si usas AnimatedSprite2D)
+	_update_animation(direccion_input)
 	if animated != null and direccion_input.x != 0.0:
 		animated.flip_h = direccion_input.x < 0.0
 
-	# --- Mover (Godot 4) ---
 	move_and_slide()
 
-	# --- Empujar RigidBody2D (piedras) ---
 	for i in range(get_slide_collision_count()):
-		var col: KinematicCollision2D = get_slide_collision(i)
-		var rb := col.get_collider()
-		if rb is RigidBody2D:
-			var push_dir: Vector2 = -col.get_normal()
-			(rb as RigidBody2D).apply_central_impulse(push_dir * 100.0)
+		var collision := get_slide_collision(i)
+		var rigid_body := collision.get_collider() as RigidBody2D
+		if rigid_body != null:
+			var push_dir := -collision.get_normal()
+			rigid_body.apply_central_impulse(push_dir * velocidad_empuje)
 
-	# --- SFX de pasos por distancia recorrida ---
-	var moved: float = global_position.distance_to(_last_pos)
+	_update_step_audio()
+	_update_bob(delta)
+
+func _update_animation(direccion_input: Vector2) -> void:
+	if anim == null:
+		return
+	var playback := anim.get("parameters/playback") as AnimationNodeStateMachinePlayback
+	if playback == null:
+		return
+	if direccion_input != Vector2.ZERO:
+		playback.travel("running")
+	else:
+		match idle_direction:
+			"back": playback.travel("Idle - back")
+			"side": playback.travel("Idle - side")
+			_: playback.travel("Idle - front")
+
+func _update_step_audio() -> void:
+	var moved := global_position.distance_to(_last_pos)
 	_last_pos = global_position
-
+	if sfx == null or step_sounds.is_empty():
+		return
 	if velocity.length() > 10.0:
 		_step_accum += moved
 		if _step_accum >= step_distance:
 			_step_accum = 0.0
-			sfx.stream = load(step_sounds.pick_random())
+			sfx.stream = step_sounds.pick_random()
 			sfx.pitch_scale = randf_range(0.9, 1.1)
 			sfx.play()
 	else:
 		_step_accum = 0.0
 
-	# --- Bob/Tilt opcional (solo si tienes Sprite2D) ---
-	if bob_enabled and sprite2d != null:
-		var speed01: float = clamp(velocity.length() / max(velocidad_movimiento, 0.001), 0.0, 1.0)
-		_bob_t += delta * bob_speed * speed01
+func _update_bob(delta: float) -> void:
+	if sprite2d == null:
+		return
+	if bob_enabled:
+		var speed_ratio := clamp(velocity.length() / max(velocidad_movimiento, 0.001), 0.0, 1.0)
+		_bob_t += delta * bob_speed * speed_ratio
 		sprite2d.position.y = sin(_bob_t) * bob_amount
 		sprite2d.rotation = deg_to_rad(tilt_amount_deg) * _dir_suave.x * 0.6
-	elif sprite2d != null:
-		# reset suave si lo apagas
+	else:
 		sprite2d.position.y = lerp(sprite2d.position.y, 0.0, 1.0 - exp(-12.0 * delta))
 		sprite2d.rotation = lerp(sprite2d.rotation, 0.0, 1.0 - exp(-12.0 * delta))
+
+func _on_audio_stream_player_finished() -> void:
+	# La conexión existe en escenas antiguas; limpiar el stream evita referencias residuales.
+	if sfx != null:
+		sfx.stream = null

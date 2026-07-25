@@ -31,9 +31,14 @@ func add_item(area: Area2D) -> void:
 	inventory.add_item(area)
 	pass
 
-func _on_area_2d_body_entered(_body: Node2D) -> void:
-	Global.state = Global.GameState.CINEMATIC
-	Global.transitionTo(\"res://Scenes/Levels/first_train_repair.tscn\", self)
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if not body is CharacterBody2D:
+		return
+
+	Global.transitionTo(
+		\"res://Scenes/Levels/first_train_repair.tscn\",
+		self
+	)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6028s"]
@@ -684,18 +689,12 @@ tile_set = SubResource("TileSet_ueuro")
 [node name="CinematicBars" parent="." instance=ExtResource("6_r8kmm")]
 
 [node name="UI" type="CanvasLayer" parent="."]
-offset = Vector2(320, 180)
-transform = Transform2D(1, 0, 0, 1, 320, 180)
 
 [node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = 1001
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -360.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.16078432)

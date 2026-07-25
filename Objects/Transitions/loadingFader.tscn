@@ -17,9 +17,10 @@ func end():
 	
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	playingAnimation = false
+
 	if anim_name == \"fade_out\":
 		Global.state = Global.GameState.PLAYING
-		self.queue_free()
+		queue_free()
 "
 
 [sub_resource type="Animation" id="Animation_3fbke"]

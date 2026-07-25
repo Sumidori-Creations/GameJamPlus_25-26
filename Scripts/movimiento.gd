@@ -13,6 +13,7 @@ extends CharacterBody2D
 @export var tilt_amount_deg: float = 6.0
 @export var margen_borde: Vector2 = Vector2(8, 8)
 
+
 @onready var anim: AnimationTree = get_node_or_null("AnimationTree") as AnimationTree
 @onready var sfx: AudioStreamPlayer = get_node_or_null("AudioStreamPlayer") as AudioStreamPlayer
 @onready var sprite2d: Sprite2D = get_node_or_null("Sprite2D") as Sprite2D
@@ -20,6 +21,7 @@ extends CharacterBody2D
 
 var ultima_direccion: Vector2 = Vector2.DOWN
 var idle_direction := "front"
+var animation_playback: AnimationNodeStateMachinePlayback
 
 var step_sounds: Array[AudioStream] = [
 	preload("res://Assets/SFX/step-1.wav"),
@@ -37,27 +39,36 @@ var _bob_t := 0.0
 func _ready() -> void:
 	_last_pos = global_position
 
+	if anim != null:
+		anim.active = true
+		animation_playback = anim.get("parameters/playback")
+
 func _physics_process(delta: float) -> void:
 	if Global.state != Global.GameState.PLAYING:
 		velocity = Vector2.ZERO
-		_step_accum = 0.0
-		_last_pos = global_position
 		return
 
-	var direccion_input := Input.get_vector("left", "right", "up", "down")
+	var direccion_input := Input.get_vector(
+		"left",
+		"right",
+		"up",
+		"down"
+	)
+	
 	if direccion_input != Vector2.ZERO:
-		if abs(direccion_input.x) > abs(direccion_input.y):
-			direccion_input = Vector2(sign(direccion_input.x), 0.0)
-		else:
-			direccion_input = Vector2(0.0, sign(direccion_input.y))
-
 		ultima_direccion = direccion_input
-		if direccion_input.y < 0.0:
-			idle_direction = "back"
-		elif direccion_input.y > 0.0:
-			idle_direction = "front"
-		else:
-			idle_direction = "side"
+
+	if animation_playback != null:
+		animation_playback.travel("running")
+	else:
+		if animation_playback != null:
+			match idle_direction:
+				"front":
+					animation_playback.travel("Idle - front")
+				"back":
+					animation_playback.travel("Idle - back")
+				"side":
+					animation_playback.travel("Idle - side")
 
 	_dir_suave = _dir_suave.lerp(direccion_input, 1.0 - exp(-turn_smooth * delta))
 	var target_vel := _dir_suave * velocidad_movimiento
@@ -115,7 +126,7 @@ func _update_bob(delta: float) -> void:
 	if sprite2d == null:
 		return
 	if bob_enabled:
-		var speed_ratio := clamp(velocity.length() / max(velocidad_movimiento, 0.001), 0.0, 1.0)
+		var speed_ratio: float = clampf(velocity.length() / maxf(velocidad_movimiento, 0.001), 0.0, 1.0)
 		_bob_t += delta * bob_speed * speed_ratio
 		sprite2d.position.y = sin(_bob_t) * bob_amount
 		sprite2d.rotation = deg_to_rad(tilt_amount_deg) * _dir_suave.x * 0.6

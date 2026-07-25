@@ -872,18 +872,12 @@ tile_set = SubResource("TileSet_yxmer")
 [node name="CinematicBars" parent="." instance=ExtResource("5_ocwd1")]
 
 [node name="UI" type="CanvasLayer" parent="."]
-offset = Vector2(320, 180)
-transform = Transform2D(1, 0, 0, 1, 320, 180)
 
 [node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = 1001
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -360.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.054666612, 0.41, 0.16470589)

@@ -12,17 +12,28 @@
 [sub_resource type="GDScript" id="GDScript_b3osi"]
 script/source = "extends Node2D
 
-@export var player_position : Vector2
+@export var player_position: Vector2
 
-@onready var player : CharacterBody2D = $Player
+@onready var player: CharacterBody2D = $Player
+
 
 func _ready() -> void:
+	get_tree().paused = false
+	Global.state = Global.GameState.PLAYING
+
+	player.process_mode = Node.PROCESS_MODE_INHERIT
+	player.set_physics_process(true)
 	player.position = player_position
 
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.name != \"Player\": return
-	Global.state = Global.GameState.CINEMATIC
-	Global.transitionTo(\"res://Scenes/Levels/demo_end.tscn\", self)
+	if body.name != \"Player\":
+		return
+
+	Global.transitionTo(
+		\"res://Scenes/Levels/demo_end.tscn\",
+		self
+	)
 "
 
 [sub_resource type="GDScript" id="GDScript_qv72c"]

@@ -5,19 +5,26 @@ class_name Player
 
 signal pickup_item(item: Area2D)
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if Global.state != Global.GameState.PLAYING:
+		velocity = Vector2.ZERO
 		return
-	
-	var direccion_input := Input.get_vector("left", "right", "up", "down")
-	velocity = direccion_input * velocidad_movimiento
-	
-	var collision = move_and_collide(velocity * delta)
 
-	if collision and collision.get_collider() is RigidBody2D:
-		var rb = collision.get_collider()
-		var push_dir = collision.get_normal() * -1.0
-		rb.apply_central_impulse(push_dir * 100)
+	var input_direction := Input.get_vector(
+		"left",
+		"right",
+		"up",
+		"down"
+	)
+
+	velocity = input_direction * velocidad_movimiento
+
+	var collision := move_and_collide(velocity * delta)
+
+	if collision != null and collision.get_collider() is RigidBody2D:
+		var rigid_body := collision.get_collider() as RigidBody2D
+		var push_direction := -collision.get_normal()
+		rigid_body.apply_central_impulse(push_direction * 100.0)
 
 func _on_recollection_hitbox_area_entered(area: Area2D) -> void:
 	if area == null or area.get("pickable") == null:
